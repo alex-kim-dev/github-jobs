@@ -2,7 +2,6 @@ import '@fontsource/kumbh-sans/300.css';
 import '@fontsource/kumbh-sans/400.css';
 import '@fontsource/kumbh-sans/700.css';
 
-import { baseurl } from '@frontend/site-meta';
 import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';
 import { useLayoutEffect } from 'react';
@@ -10,6 +9,7 @@ import { JssProvider, ThemeProvider } from 'react-jss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import reset from 'reset-jss';
 
+import { baseurl } from '../siteMeta';
 import { toggleTheme } from './actions';
 import Header from './components/layout/Header';
 import Wrapper from './components/layout/Wrapper';

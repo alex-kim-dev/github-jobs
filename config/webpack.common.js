@@ -1,14 +1,12 @@
 const path = require('path');
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const { title, description, author } = require('../siteMeta');
+
 const paths = require('./paths');
-
-const { author, favicon } = require('@frontend/site-meta');
-
-const title = 'GitHub Jobs API';
-const description = `A frontendmentor.io '${title}' challenge solution by Alex Kim`;
 
 module.exports = {
   entry: [path.join(paths.src, 'index.jsx')],
@@ -38,7 +36,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title,
       meta: { description, author },
-      faviconDataUri: favicon,
+      favicon: path.join(__dirname, '..', 'static', 'favicon-32x32.png'),
       template: path.join(paths.src, 'template.html'),
       filename: 'index.html',
     }),

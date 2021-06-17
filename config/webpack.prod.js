@@ -1,10 +1,10 @@
 const { merge } = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const paths = require('./paths');
-const common = require('./webpack.common.js');
+const { url, baseurl } = require('../siteMeta');
 
-const { url, baseurl } = require('@frontend/site-meta');
+const paths = require('./paths');
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
   mode: 'production',

@@ -2,8 +2,8 @@ parser: babel-eslint
 extends:
   - airbnb
   - airbnb/hooks
-  - plugin:jest/recommended
-  - plugin:jest/style
+  # - plugin:jest/recommended
+  # - plugin:jest/style
   - plugin:prettier/recommended
   - prettier/react
 env:
@@ -40,4 +40,4 @@ overrides:
 settings:
   import/resolver:
     webpack:
-      config: 'config/webpack.common.js'
+      config: './config/webpack.common.js'

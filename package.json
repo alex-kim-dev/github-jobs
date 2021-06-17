@@ -1,27 +1,28 @@
 {
   "name": "github-jobs",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "private": true,
   "description": "A solution for \"GitHub Jobs API\" challenge on frontendmentor.io",
   "license": "MIT",
-  "repository": "git@github.com:Alex-K1m/frontend-practice.git",
+  "repository": "git@github.com:Alex-K1m/github-jobs.git",
   "author": "Alex Kim <45559664+Alex-K1m@users.noreply.github.com>",
-  "homepage": "https://alex-k1m.github.io/frontend-practice/",
-  "bugs": "https://github.com/Alex-K1m/frontend-practice/issues",
+  "homepage": "https://alex-k1m.github.io/github-jobs/",
+  "bugs": "https://github.com/Alex-K1m/github-jobs/issues",
   "scripts": {
-    "analyze": "cross-env NODE_ENV=production webpack --analyze --config config/webpack.prod.js",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
-    "fix": "concurrently \"yarn:fix:*\"",
+    "analyze": "npm run build -- --analyze",
+    "build": "webpack --config config/webpack.prod.js",
+    "fix": "concurrently \"npm:fix:*\"",
     "fix:code": "eslint --fix .",
-    "fix:misc": "prettier --write \"**/*.{pug,json,yml,yaml,md}\"",
-    "lint": "concurrently \"yarn:lint:*\"",
+    "fix:format": "prettier --write \"**/*.{pug,json,yml,yaml,md}\"",
+    "lint": "concurrently \"npm:lint:*\"",
     "lint:code": "eslint .",
-    "lint:misc": "prettier --check \"**/*.{pug,json,yml,yaml,md}\"",
-    "start": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js"
+    "lint:format": "prettier --check \"**/*.{pug,json,yml,yaml,md}\"",
+    "postinstall": "husky install",
+    "prepare": "husky install",
+    "start": "webpack serve --config config/webpack.dev.js"
   },
   "dependencies": {
     "@fontsource/kumbh-sans": "^4.2.1",
-    "@frontend/site-meta": "^1.0.2",
     "clsx": "^1.1.1",
     "jss": "^10.5.1",
     "jss-preset-default": "^10.5.1",
@@ -39,7 +40,8 @@
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/preset-env": "^7.12.16",
     "@babel/preset-react": "^7.12.13",
-    "@frontend/browserslist-config": "^1.0.1",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@svgr/webpack": "^5.5.0",
     "babel-eslint": "^10.1.0",
@@ -47,7 +49,6 @@
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.3.0",
     "copy-webpack-plugin": "^7.0.0",
-    "cross-env": "^7.0.3",
     "css-loader": "^5.0.2",
     "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -62,6 +63,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "html-webpack-plugin": "^5.1.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "prettier": "^2.2.1",
     "prettier-plugin-package": "^1.3.0",
     "react-refresh": "^0.9.0",
@@ -71,8 +74,5 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
-  },
-  "browserslist": [
-    "extends @frontend/browserslist-config"
-  ]
+  }
 }
