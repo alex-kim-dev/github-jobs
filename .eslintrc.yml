@@ -1,0 +1,43 @@
+parser: babel-eslint
+extends:
+  - airbnb
+  - airbnb/hooks
+  - plugin:jest/recommended
+  - plugin:jest/style
+  - plugin:prettier/recommended
+  - prettier/react
+env:
+  browser: true
+  node: true
+  jest: true
+plugins:
+  - simple-import-sort
+  - jss
+rules:
+  simple-import-sort/imports: error
+  simple-import-sort/exports: error
+  sort-imports: off
+  import/order: off
+  react/require-default-props:
+    - error
+    - ignoreFunctionalComponents: true
+  jsx-a11y/label-has-associated-control:
+    - error
+    - assert: either
+  react/react-in-jsx-scope: off
+  jss/sort-jss-keys: error
+
+overrides:
+  - files:
+      - config/**/*.js
+    rules:
+      simple-import-sort/imports: off
+      import/no-extraneous-dependencies: off
+      import/order:
+        - error
+        - newlines-between: always
+
+settings:
+  import/resolver:
+    webpack:
+      config: 'config/webpack.common.js'
