@@ -16,7 +16,7 @@ module.exports = merge(common, {
   output: {
     path: paths.build,
     filename: 'js/[name].[contenthash].bundle.js',
-    publicPath: `${url}${baseurl}/github-jobs`,
+    publicPath: `${url}${baseurl}`,
   },
 
   optimization: {

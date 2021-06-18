@@ -56,8 +56,7 @@ const jss = createJss(preset());
 jss.createStyleSheet(reset).attach();
 jss.createStyleSheet(globalStyles).attach();
 
-const basename =
-  process.env.NODE_ENV === 'production' ? `${baseurl}/github-jobs` : '';
+const basename = process.env.NODE_ENV === 'production' ? baseurl : '';
 
 const App = () => {
   const { theme: currentTheme } = useStore();
