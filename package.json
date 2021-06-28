@@ -25,6 +25,7 @@
     "clsx": "^1.1.1",
     "jss": "^10.6.0",
     "jss-preset-default": "^10.6.0",
+    "msw": "^0.30.0",
     "nanoid": "^3.1.23",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -74,5 +75,8 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.8.0"
+  },
+  "msw": {
+    "workerDirectory": "static"
   }
 }
