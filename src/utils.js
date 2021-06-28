@@ -1,4 +1,4 @@
-const corsProxy = 'https://cors.bridged.cc/';
+// const corsProxy = 'https://cors.bridged.cc/';
 const jobsListEndpoint = 'https://jobs.github.com/positions.json';
 const jobEndpoint = (id) => `https://jobs.github.com/positions/${id}.json`;
 
@@ -53,28 +53,30 @@ const parseUrl = (url) => {
   }
 };
 
-export const normalizeJob = ({
+export const transformJobData = ({
   id,
-  type,
-  created_at: createdAt,
   company,
-  company_url: url,
+  logo,
+  logoBackground,
+  position,
+  postedAt,
+  contract,
   location,
-  title,
+  website,
+  apply,
   description,
-  how_to_apply: howToApply,
-  company_logo: logo,
 }) => ({
   id,
-  type,
-  createdAt: new Date(createdAt),
   company,
-  url: parseUrl(url),
-  location,
-  title,
-  description,
-  howToApply,
   logo,
+  logoBackground,
+  title: position,
+  createdAt: postedAt,
+  type: contract,
+  location,
+  url: parseUrl(website),
+  howToApply: apply,
+  description,
 });
 
 export const parseSearchQuery = (str) => {
@@ -95,15 +97,14 @@ export const makeUrlQuery = ({ description, location, isFullTime, page }) => {
 };
 
 export const makeJobsListUrl = (searchParams) => {
-  const url = new URL(corsProxy);
-  url.pathname = jobsListEndpoint;
+  const url = new URL(jobsListEndpoint);
   url.search = makeUrlQuery(searchParams);
   return url;
 };
 
 export const makeJobUrl = (id) => {
-  const url = new URL(corsProxy);
-  url.pathname = jobEndpoint(id);
+  const url = new URL(jobEndpoint(id));
+  return url;
 };
 
 export const getSearchParams = () => {

@@ -4,8 +4,6 @@ import { shape } from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom';
 
-import { getRelativeTimeSince } from '@/utils';
-
 const useStyles = createUseStyles(({ colors: c }) => ({
   wrapper: {
     display: 'grid',
@@ -68,8 +66,6 @@ const Card = ({ position }) => {
   const css = useStyles();
   const { id, type, createdAt, company, location, title, logo } = position;
 
-  const relativeTime = getRelativeTimeSince(createdAt);
-
   return (
     <div className={css.wrapper}>
       <div className={css.logo}>
@@ -77,9 +73,9 @@ const Card = ({ position }) => {
       </div>
       <div className={css.body}>
         <div>
-          <Status list={[relativeTime, type]} />
+          <Status list={[createdAt, type]} />
           <h3 className={css.title}>
-            <Link to={id}>{title}</Link>
+            <Link to={`/${id}`}>{title}</Link>
           </h3>
           <p className={css.company}>{company}</p>
         </div>

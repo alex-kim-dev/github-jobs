@@ -1,5 +1,5 @@
 import { actionTypes as at } from './store';
-import { makeJobsListUrl, makeJobUrl, normalizeJob } from './utils';
+import { makeJobsListUrl, makeJobUrl, transformJobData } from './utils';
 
 export const toggleTheme = () => ({ type: at.TOGGLE_THEME });
 
@@ -28,7 +28,7 @@ export const getJobsList = (searchParams) => (dispatch) => {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      const jobs = data.map(normalizeJob);
+      const jobs = data.map(transformJobData);
       const status = jobs.length === 0 ? 'noresults' : 'idle';
       dispatch(setJobsStatus(status));
       dispatch(saveJobsList(jobs));
@@ -58,7 +58,7 @@ export const getSpecificJob = (id) => (dispatch) => {
       return response.json();
     })
     .then((data) => {
-      const job = normalizeJob(data);
+      const job = transformJobData(data);
       dispatch(setJobsStatus('idle'));
       dispatch(saveSpecificJob(job));
     })

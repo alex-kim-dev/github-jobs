@@ -2,7 +2,6 @@ import { instanceOf, shape, string } from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
 import { useBreakpoint, useStore } from '@/hooks';
-import { getRelativeTimeSince } from '@/utils';
 
 import Button from '../../common/Button';
 import HtmlContent from '../../common/HtmlContent';
@@ -76,13 +75,11 @@ const Content = ({
   const css = useStyles(theme);
   const isSmUp = useBreakpoint('smUp');
 
-  const relativeTime = getRelativeTimeSince(createdAt);
-
   return (
     <section className={css.section}>
       <div className={css.header}>
         <div>
-          <Status list={[relativeTime, type]} />
+          <Status list={[createdAt, type]} />
           <h3 className={css.heading}>{title}</h3>
           <p className={css.location}>{location}</p>
         </div>
