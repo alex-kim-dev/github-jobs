@@ -26,9 +26,13 @@ module.exports = {
           from: paths.static,
           to: 'assets',
           globOptions: {
-            ignore: ['*.DS_Store'],
+            ignore: ['*.DS_Store', '**/mockServiceWorker.js', '**/favicon*'],
           },
           noErrorOnMissing: true,
+        },
+        {
+          from: path.join(paths.static, 'mockServiceWorker.js'),
+          to: '.',
         },
       ],
     }),
