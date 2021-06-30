@@ -49,8 +49,8 @@ const Home = () => {
   const noResultsMsg = 'Nothing found';
 
   const handleLoadMoreClick = () => {
-    // if (status === 'loading') return;
-    // dispatch(getJobsList(search));
+    if (status === loading) return;
+    dispatch(fetchJobList());
   };
 
   if (status === failed) return <ErrorMessage message={errMsg} />;

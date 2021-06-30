@@ -81,8 +81,3 @@ export const getSearchParams = () => {
     isFullTime: query.get('full_time') === 'on',
   };
 };
-
-export const mergeJobs = (jobs, jobsToAppend) => [
-  ...jobs,
-  ...jobsToAppend.filter(({ id }) => !jobs.some((job) => job.id === id)),
-];
