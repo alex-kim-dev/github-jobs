@@ -37,7 +37,7 @@ const useStyles = createUseStyles(({ colors: c }) => ({
   },
 }));
 
-const Cta = ({ data: { title, company, url } }) => {
+const Cta = ({ data: { position, company, website } }) => {
   const css = useStyles();
   const isSmUp = useBreakpoint('smUp');
 
@@ -47,13 +47,13 @@ const Cta = ({ data: { title, company, url } }) => {
         <div className={css.flex}>
           {isSmUp && (
             <div>
-              <p className={css.heading}>{title}</p>
+              <p className={css.heading}>{position}</p>
               <p className={css.subheading}>{company}</p>
             </div>
           )}
           <Button
             as='a'
-            href={url || '#'}
+            href={website || '#'}
             target='_blank'
             rel='noreferrer'
             variant='secondary'
@@ -69,9 +69,9 @@ const Cta = ({ data: { title, company, url } }) => {
 
 Cta.propTypes = {
   data: shape({
-    title: string,
+    position: string,
     company: string,
-    url: string,
+    website: string,
   }).isRequired,
 };
 

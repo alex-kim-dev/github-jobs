@@ -62,9 +62,10 @@ const useStyles = createUseStyles(({ colors: c }) => ({
   },
 }));
 
-const Card = ({ position }) => {
+const Card = ({ job }) => {
   const css = useStyles();
-  const { id, type, createdAt, company, location, title, logo } = position;
+
+  const { id, contract, postedAt, company, location, position, logo } = job;
 
   return (
     <div className={css.wrapper}>
@@ -73,9 +74,9 @@ const Card = ({ position }) => {
       </div>
       <div className={css.body}>
         <div>
-          <Status list={[createdAt, type]} />
+          <Status list={[postedAt, contract]} />
           <h3 className={css.title}>
-            <Link to={`/${id}`}>{title}</Link>
+            <Link to={`/${id}`}>{position}</Link>
           </h3>
           <p className={css.company}>{company}</p>
         </div>
@@ -86,7 +87,7 @@ const Card = ({ position }) => {
 };
 
 Card.propTypes = {
-  position: shape().isRequired,
+  job: shape().isRequired,
 };
 
 export default Card;

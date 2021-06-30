@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { transformJobData } from '@/utils';
 import {
   failed,
   initial,
@@ -30,7 +29,7 @@ const jobSlice = createSlice({
       state.status = loading;
     },
     [fetchJob.fulfilled]: (state, action) => {
-      state.job = transformJobData(action.payload);
+      state.job = action.payload;
       state.status = succeeded;
     },
     [fetchJob.rejected]: (state, action) => {

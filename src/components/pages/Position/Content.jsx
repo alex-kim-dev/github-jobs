@@ -71,7 +71,7 @@ const useStyles = createUseStyles(({ colors: c, breakpoints: { smUp } }) => ({
 }));
 
 const Content = ({
-  data: { createdAt, type, title, location, url, description },
+  data: { postedAt, contract, position, location, website, description },
 }) => {
   const theme = useSelector((state) => state.ui.theme);
   const css = useStyles(theme);
@@ -81,14 +81,14 @@ const Content = ({
     <section className={css.section}>
       <div className={css.header}>
         <div>
-          <Status list={[createdAt, type]} />
-          <h3 className={css.heading}>{title}</h3>
+          <Status list={[postedAt, contract]} />
+          <h3 className={css.heading}>{position}</h3>
           <p className={css.location}>{location}</p>
         </div>
         <Button
           fullWidth={isSmUp ? undefined : true}
           as='a'
-          href={url || '#'}
+          href={website || '#'}
           target='_blank'
           rel='noreferrer'
         >
@@ -104,11 +104,11 @@ const Content = ({
 
 Content.propTypes = {
   data: shape({
-    createdAt: string,
-    type: string,
-    title: string,
+    position: string,
+    postedAt: string,
+    contract: string,
     location: string,
-    url: string,
+    website: string,
     description: string,
   }).isRequired,
 };
