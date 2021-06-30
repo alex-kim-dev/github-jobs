@@ -37,13 +37,13 @@ const Position = () => {
   const {
     company,
     logo,
-    url,
-    createdAt,
+    website,
+    postedAt,
     description,
-    howToApply,
+    apply,
     location,
-    title,
-    type,
+    position,
+    contract,
   } = job;
 
   return (
@@ -51,13 +51,20 @@ const Position = () => {
       <ScrollToTop />
       <article className={css.wrapper}>
         <Container maxWidth='sm'>
-          <Heading data={{ company, url, logoUrl: logo }} />
+          <Heading data={{ company, website, logo }} />
           <Content
-            data={{ createdAt, type, title, location, url, description }}
+            data={{
+              position,
+              postedAt,
+              contract,
+              location,
+              website,
+              description,
+            }}
           />
-          {howToApply && <Summary content={howToApply} />}
+          {apply && <Summary content={apply} />}
         </Container>
-        <Cta data={{ title, company, url }} />
+        <Cta data={{ position, company, website }} />
       </article>
     </>
   );

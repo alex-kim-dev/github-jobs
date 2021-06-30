@@ -24,15 +24,15 @@ const useStyles = createUseStyles(({ breakpoints: { smUp, mdUp } }) => ({
   },
 }));
 
-const Grid = ({ data }) => {
+const Grid = ({ jobList }) => {
   const css = useStyles();
 
   return (
     <Container>
       <ul className={css.grid}>
-        {data.map((positionData) => (
-          <li key={positionData.id}>
-            <Card position={positionData} />
+        {jobList.map((job) => (
+          <li key={job.id}>
+            <Card job={job} />
           </li>
         ))}
       </ul>
@@ -41,7 +41,7 @@ const Grid = ({ data }) => {
 };
 
 Grid.propTypes = {
-  data: arrayOf(shape({})).isRequired,
+  jobList: arrayOf(shape({})).isRequired,
 };
 
 export default Grid;

@@ -61,7 +61,7 @@ const Home = () => {
   return (
     <>
       <Search />
-      <Grid data={list} />
+      <Grid jobList={list} />
       <Container>
         <div className={css.loadMore}>
           <Button loading={status === loading} onClick={handleLoadMoreClick}>

@@ -78,17 +78,17 @@ const useStyles = createUseStyles(({ breakpoints: { smUp }, colors: c }) => ({
   },
 }));
 
-const Heading = ({ data: { company, url, logoUrl } }) => {
+const Heading = ({ data: { company, website, logo } }) => {
   const css = useStyles();
   const isSmUp = useBreakpoint('smUp');
 
-  const website = new URL(url).hostname ?? '';
+  const site = new URL(website).hostname ?? '';
 
   return (
     <header className={css.wrapper}>
       <div className={css.logo}>
         <Logo
-          src={logoUrl || undefined}
+          src={logo || undefined}
           alt={`${company} logo`}
           size={isSmUp ? 'large' : 'small'}
         />
@@ -100,7 +100,7 @@ const Heading = ({ data: { company, url, logoUrl } }) => {
         </div>
         <Button
           as='a'
-          href={url}
+          href={site}
           target='_blank'
           rel='noreferrer'
           variant='secondary'
@@ -115,8 +115,8 @@ const Heading = ({ data: { company, url, logoUrl } }) => {
 Heading.propTypes = {
   data: shape({
     company: string,
-    url: string,
-    logoUrl: string,
+    website: string,
+    logo: string,
   }).isRequired,
 };
 

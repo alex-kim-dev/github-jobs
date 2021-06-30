@@ -45,32 +45,6 @@ export const getRelativeTimeSince = (date = Date.now()) => {
   } ago`.trim();
 };
 
-export const transformJobData = ({
-  id,
-  company,
-  logo,
-  logoBackground,
-  position,
-  postedAt,
-  contract,
-  location,
-  website,
-  apply,
-  description,
-}) => ({
-  id,
-  company,
-  logo,
-  logoBackground,
-  title: position,
-  createdAt: postedAt,
-  type: contract,
-  location,
-  url: website,
-  howToApply: apply,
-  description,
-});
-
 export const parseSearchQuery = (str) => {
   const params = new URLSearchParams(str);
   return [...params].reduce(
