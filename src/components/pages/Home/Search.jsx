@@ -9,11 +9,13 @@ import { bool } from 'prop-types';
 import { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import ReactModal from 'react-modal';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { getJobsList, saveSearch } from '@/actions';
-import { useBreakpoint, useDispatch, useStore } from '@/hooks';
+import { useBreakpoint } from '@/hooks';
+import { fetchJobList } from '@/store/jobsList/jobList.slice';
 import { hexToRgba, makeUrlQuery } from '@/utils';
+import * as statuses from '@/utils/constants/statuses';
 
 ReactModal.setAppElement('#root');
 
@@ -127,14 +129,17 @@ const Search = () => {
   const css = useSearchStyles();
   const isSmUp = useBreakpoint('smUp');
   const isMdUp = useBreakpoint('mdUp');
-
-  const {
-    search,
-    jobs: { isLoading },
-  } = useStore();
   const dispatch = useDispatch();
   const history = useHistory();
+  const jobListStatus = useSelector((state) => state.jobList.status);
+  const loading = jobListStatus === statuses.loading;
 
+  // FIXME temp stub
+  const search = {
+    description: '',
+    location: '',
+    isFullTime: false,
+  };
   const [description, setDescription] = useState(search.description);
   const [location, setLocation] = useState(search.location);
   const [isFullTime, setFullTime] = useState(search.isFullTime);
@@ -154,13 +159,13 @@ const Search = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isLoading) return;
+    if (loading) return;
 
     const searchParams = { description, location, isFullTime };
     const query = makeUrlQuery(searchParams);
 
-    dispatch(saveSearch(searchParams));
-    dispatch(getJobsList(searchParams));
+    // dispatch(saveSearch(searchParams));
+    dispatch(fetchJobList()); // FIXME pass seachParams
 
     history.push(`/?${query}`);
   };
@@ -186,7 +191,7 @@ const Search = () => {
         />
       </div>
       <div className={css.submit}>
-        <Button type='submit' fullWidth loading={isLoading}>
+        <Button type='submit' fullWidth loading={loading}>
           Search
         </Button>
       </div>
@@ -205,7 +210,7 @@ const Search = () => {
         </Button>
       </div>
       <div className={css.submit}>
-        <Button type='submit' loading={isLoading}>
+        <Button type='submit' loading={loading}>
           <IconSearch viewBox='0 0 24 24' width='20' height='20' />
         </Button>
       </div>

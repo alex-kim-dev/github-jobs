@@ -27,14 +27,20 @@ rules:
   jss/sort-jss-keys: error
 
 overrides:
-  - files:
-      - config/**/*.js
+  - files: config/**/*.js
     rules:
       simple-import-sort/imports: off
       import/no-extraneous-dependencies: off
       import/order:
         - error
         - newlines-between: always
+
+  - files: src/store/**/*.slice.js
+    rules:
+      no-param-reassign:
+        - error
+        - props: true
+          ignorePropertyModificationsFor: [state]
 
 settings:
   import/resolver:

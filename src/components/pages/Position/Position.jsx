@@ -1,8 +1,9 @@
 import Container from '@components/layout/Container';
 import { createUseStyles } from 'react-jss';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { useStore } from '@/hooks';
+import { selectJobById } from '@/store/jobsList/jobList.slice';
 
 import ScrollToTop from '../../common/ScrollToTop';
 import Content from './Content';
@@ -21,14 +22,11 @@ const useStyles = createUseStyles({
 
 const Position = () => {
   const css = useStyles();
-  const { id } = useParams();
-  const {
-    jobs: { list },
-  } = useStore();
+  const id = Number(useParams().id);
+  const job = useSelector(selectJobById(id));
 
-  const position = list.find((record) => record.id === id);
-
-  if (!position)
+  if (!job)
+    // TODO fetch!
     return (
       <>
         <ScrollToTop />
@@ -46,7 +44,7 @@ const Position = () => {
     location,
     title,
     type,
-  } = position;
+  } = job;
 
   return (
     <>
@@ -64,7 +62,5 @@ const Position = () => {
     </>
   );
 };
-
-Position.propTypes = {};
 
 export default Position;

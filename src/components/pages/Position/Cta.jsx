@@ -1,5 +1,5 @@
 import Container from '@components/layout/Container';
-import { instanceOf, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
 import { useBreakpoint } from '@/hooks';
@@ -71,7 +71,7 @@ Cta.propTypes = {
   data: shape({
     title: string,
     company: string,
-    url: instanceOf(URL),
+    url: string,
   }).isRequired,
 };
 

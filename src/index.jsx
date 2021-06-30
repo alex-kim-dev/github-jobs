@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
 import mswWorker from './apiMock/browser';
 import App from './App';
-import { StoreProvider } from './store';
+import store from './store';
 
 mswWorker.start({
   onUnhandledRequest: 'bypass',
@@ -10,8 +11,8 @@ mswWorker.start({
 });
 
 ReactDOM.render(
-  <StoreProvider>
+  <Provider store={store}>
     <App />
-  </StoreProvider>,
+  </Provider>,
   document.getElementById('root'),
 );
