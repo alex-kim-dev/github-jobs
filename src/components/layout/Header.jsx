@@ -5,10 +5,11 @@ import IconSun from '@assets/icons/icon-sun.svg';
 import backMobile from '@assets/mobile/bg-pattern-header.svg';
 import backTablet from '@assets/tablet/bg-pattern-header.svg';
 import { createUseStyles } from 'react-jss';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { toggleTheme } from '@/actions';
-import { useDispatch, useStore } from '@/hooks';
+import { switchTheme } from '@/store/ui/ui.slice';
+import * as themes from '@/utils/constants/themes';
 
 import Toggle from '../common/Toggle';
 import Container from './Container';
@@ -47,8 +48,13 @@ const useStyles = createUseStyles(({ breakpoints: { smUp, mdUp } }) => ({
 
 const Header = () => {
   const css = useStyles();
-  const { theme } = useStore();
+  const theme = useSelector((state) => state.ui.theme);
   const dispatch = useDispatch();
+
+  const handleToggle = () => {
+    const newTheme = theme === themes.light ? themes.dark : themes.light;
+    dispatch(switchTheme(newTheme));
+  };
 
   return (
     <header className={css.header}>
@@ -61,8 +67,8 @@ const Header = () => {
             label='Switch theme'
             iconLeft={<IconSun />}
             iconRight={<IconMoon />}
-            onChange={() => dispatch(toggleTheme())}
-            checked={theme === 'dark'}
+            onChange={handleToggle}
+            checked={theme === themes.dark}
           />
         </div>
       </Container>

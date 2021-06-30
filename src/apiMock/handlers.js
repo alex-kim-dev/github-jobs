@@ -47,6 +47,7 @@ export default [
     const filtered = filter(description, location, fullTime);
 
     return res(
+      ctx.delay(800),
       ctx.status(200),
       ctx.json(filtered.slice(itemsInPage * (page - 1), itemsInPage * page)),
     );
@@ -60,6 +61,6 @@ export default [
     const jobData = data.find((job) => job.id === idToFind);
     if (jobData === undefined) return res(ctx.status(404));
 
-    return res(ctx.status(200), ctx.json(jobData));
+    return res(ctx.delay(800), ctx.status(200), ctx.json(jobData));
   }),
 ];

@@ -1,7 +1,9 @@
-import { instanceOf, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { createUseStyles } from 'react-jss';
+import { useSelector } from 'react-redux';
 
-import { useBreakpoint, useStore } from '@/hooks';
+import { useBreakpoint } from '@/hooks';
+import { dark } from '@/utils/constants/themes';
 
 import Button from '../../common/Button';
 import HtmlContent from '../../common/HtmlContent';
@@ -9,7 +11,7 @@ import Status from '../../common/Status';
 
 const useStyles = createUseStyles(({ colors: c, breakpoints: { smUp } }) => ({
   description: {
-    color: (theme) => (theme === 'dark' ? '#9daec2' : c.textAlt),
+    color: (theme) => (theme === dark ? '#9daec2' : c.textAlt),
     lineHeight: '165%',
     marginTop: '3.2rem',
     wordBreak: 'break-word',
@@ -71,7 +73,7 @@ const useStyles = createUseStyles(({ colors: c, breakpoints: { smUp } }) => ({
 const Content = ({
   data: { createdAt, type, title, location, url, description },
 }) => {
-  const { theme } = useStore();
+  const theme = useSelector((state) => state.ui.theme);
   const css = useStyles(theme);
   const isSmUp = useBreakpoint('smUp');
 
@@ -102,11 +104,11 @@ const Content = ({
 
 Content.propTypes = {
   data: shape({
-    createdAt: instanceOf(Date),
+    createdAt: string,
     type: string,
     title: string,
     location: string,
-    url: instanceOf(URL),
+    url: string,
     description: string,
   }).isRequired,
 };

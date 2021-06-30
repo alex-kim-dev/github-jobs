@@ -2,12 +2,17 @@ import Button from '@components/common/Button';
 import Container from '@components/layout/Container';
 import { useLayoutEffect } from 'react';
 import { createUseStyles } from 'react-jss';
-import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getJobsList, saveSearch } from '@/actions';
-import { useDispatch, useStore } from '@/hooks';
-import { parseSearchQuery } from '@/utils';
+import { fetchJobList } from '@/store/jobsList/jobList.slice';
+import {
+  failed,
+  initial,
+  loading,
+  succeeded,
+} from '@/utils/constants/statuses';
 
+// import { parseSearchQuery } from '@/utils';
 import ErrorMessage from './ErrorMessage';
 import Grid from './Grid';
 import Search from './Search';
@@ -29,33 +34,29 @@ const useStyles = createUseStyles(({ breakpoints: { smUp, mdUp } }) => ({
 }));
 
 const Home = () => {
-  const {
-    search,
-    jobs: { status, list },
-  } = useStore();
-  const dispatch = useDispatch();
   const css = useStyles();
-  const location = useLocation();
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.jobList.status);
+  const list = useSelector((state) => state.jobList.list);
 
   useLayoutEffect(() => {
-    // TODO if params are the same || list is empty ?
-    // or useParams -> useState(initial) -> useEffect to fetch once on App mount
-    const searchParams = parseSearchQuery(location.search);
-    dispatch(saveSearch(searchParams));
-    dispatch(getJobsList(searchParams));
-  }, [dispatch, location]);
+    // const searchParams = parseSearchQuery(location.search);
+    // save search
+    if (status === initial) dispatch(fetchJobList());
+  }, [status, dispatch]);
 
   const errMsg = 'Error while getting jobs, please try again';
   const noResultsMsg = 'Nothing found';
 
   const handleLoadMoreClick = () => {
-    if (status === 'loading') return;
-    dispatch(getJobsList(search));
+    // if (status === 'loading') return;
+    // dispatch(getJobsList(search));
   };
 
-  if (status === 'failed') return <ErrorMessage message={errMsg} />;
+  if (status === failed) return <ErrorMessage message={errMsg} />;
 
-  if (status === 'noresults') return <ErrorMessage message={noResultsMsg} />;
+  if (status === succeeded && list.length === 0)
+    return <ErrorMessage message={noResultsMsg} />;
 
   return (
     <>
@@ -63,7 +64,7 @@ const Home = () => {
       <Grid data={list} />
       <Container>
         <div className={css.loadMore}>
-          <Button loading={status === 'loading'} onClick={handleLoadMoreClick}>
+          <Button loading={status === loading} onClick={handleLoadMoreClick}>
             Load More
           </Button>
         </div>

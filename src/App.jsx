@@ -6,17 +6,19 @@ import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';
 import { useLayoutEffect } from 'react';
 import { JssProvider, ThemeProvider } from 'react-jss';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import reset from 'reset-jss';
 
 import { baseurl } from '../siteMeta';
-import { toggleTheme } from './actions';
 import Header from './components/layout/Header';
 import Wrapper from './components/layout/Wrapper';
 import Home from './components/pages/Home';
 import Position from './components/pages/Position';
-import { useDispatch, useStore, useThemePreference } from './hooks';
+import { useThemePreference } from './hooks';
+import { switchTheme } from './store/ui/ui.slice';
 import theme from './theme';
+import { dark } from './utils/constants/themes';
 
 const globalStyles = {
   '@global': {
@@ -59,12 +61,12 @@ jss.createStyleSheet(globalStyles).attach();
 const basename = process.env.NODE_ENV === 'production' ? baseurl : '';
 
 const App = () => {
-  const { theme: currentTheme } = useStore();
+  const currentTheme = useSelector((state) => state.ui.theme);
   const isDarkThemePreferred = useThemePreference();
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-    if (isDarkThemePreferred) dispatch(toggleTheme());
+    if (isDarkThemePreferred) dispatch(switchTheme(dark));
   }, [isDarkThemePreferred, dispatch]);
 
   return (

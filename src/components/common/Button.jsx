@@ -9,8 +9,9 @@ import {
   string,
 } from 'prop-types';
 import { createUseStyles } from 'react-jss';
+import { useSelector } from 'react-redux';
 
-import { useStore } from '@/hooks';
+import { dark } from '@/utils/constants/themes';
 
 const useStyles = createUseStyles(({ colors: c }) => ({
   button: ({ variant, fullWidth, hasIcon, loading, currentTheme }) => {
@@ -23,12 +24,12 @@ const useStyles = createUseStyles(({ colors: c }) => ({
       secondary: {
         back: c.neutral,
         backHover: c.neutralAlt,
-        text: currentTheme === 'dark' ? '#fff' : c.accent,
+        text: currentTheme === dark ? '#fff' : c.accent,
       },
       neutral: {
         back: 'transparent',
         backHover: c.neutral,
-        text: currentTheme === 'dark' ? '#fff' : c.textAlt,
+        text: currentTheme === dark ? '#fff' : c.textAlt,
       },
     };
 
@@ -90,7 +91,7 @@ const Button = ({
   children,
   ...props
 }) => {
-  const { theme: currentTheme } = useStore();
+  const currentTheme = useSelector((state) => state.ui.theme);
   const hasIcon = typeof children !== 'string';
   const css = useStyles({ variant, fullWidth, hasIcon, loading, currentTheme });
 
