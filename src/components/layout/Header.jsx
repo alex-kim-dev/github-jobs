@@ -8,6 +8,7 @@ import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { resetSearchParams } from '@/store/jobsList/jobList.slice';
 import { switchTheme } from '@/store/ui/ui.slice';
 import * as themes from '@/utils/constants/themes';
 
@@ -60,7 +61,7 @@ const Header = () => {
     <header className={css.header}>
       <Container>
         <div className={css.inner}>
-          <Link to='/'>
+          <Link to='/' onClick={() => dispatch(resetSearchParams())}>
             <img src={logo} alt='Devjobs' />
           </Link>
           <Toggle

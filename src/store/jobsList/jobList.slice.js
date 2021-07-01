@@ -36,8 +36,11 @@ const jobListSlice = createSlice({
   reducers: {
     saveSearchParams: (state, action) => {
       state.params = { ...initialState.params, ...action.payload };
-      state.page = 1;
-      state.list = [];
+      state.page = initialState.page;
+      state.list = initialState.list;
+    },
+    resetSearchParams: (state) => {
+      state.status = initial;
     },
   },
   extraReducers: {
@@ -46,8 +49,6 @@ const jobListSlice = createSlice({
     },
     [fetchJobList.fulfilled]: (state, action) => {
       const list = action.payload;
-      // if (state.page === initialState.page) state.list = list;
-      // else
       state.list.push(
         ...list.filter(({ id }) => state.list.every((job) => job.id !== id)),
       );
@@ -63,7 +64,7 @@ const jobListSlice = createSlice({
 
 export default jobListSlice.reducer;
 
-export const { saveSearchParams } = jobListSlice.actions;
+export const { saveSearchParams, resetSearchParams } = jobListSlice.actions;
 
 export const selectJobById = (id) => (state) =>
   state.jobList.list.find((job) => job.id === id);
