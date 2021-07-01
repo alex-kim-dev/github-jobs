@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import reset from 'reset-jss';
 
-import { baseurl } from '../siteMeta';
 import Header from './components/layout/Header';
 import Wrapper from './components/layout/Wrapper';
 import Home from './components/pages/Home';
@@ -58,8 +57,6 @@ const jss = createJss(preset());
 jss.createStyleSheet(reset).attach();
 jss.createStyleSheet(globalStyles).attach();
 
-const basename = process.env.NODE_ENV === 'production' ? baseurl : '';
-
 const App = () => {
   const currentTheme = useSelector((state) => state.ui.theme);
   const isDarkThemePreferred = useThemePreference();
@@ -72,7 +69,7 @@ const App = () => {
   return (
     <JssProvider jss={jss}>
       <ThemeProvider theme={{ ...theme, colors: theme.colors[currentTheme] }}>
-        <Router basename={basename}>
+        <Router>
           <Wrapper>
             <Header />
             <Switch>
