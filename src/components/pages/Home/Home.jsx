@@ -1,10 +1,12 @@
 import Button from '@components/common/Button';
 import Container from '@components/layout/Container';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
-import { fetchJobList } from '@/store/jobsList/jobList.slice';
+import { fetchJobList, saveSearchParams } from '@/store/jobsList/jobList.slice';
+import { parseSearchQuery } from '@/utils';
 import {
   failed,
   initial,
@@ -12,7 +14,6 @@ import {
   succeeded,
 } from '@/utils/constants/statuses';
 
-// import { parseSearchQuery } from '@/utils';
 import ErrorMessage from './ErrorMessage';
 import Grid from './Grid';
 import Search from './Search';
@@ -38,12 +39,15 @@ const Home = () => {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.jobList.status);
   const list = useSelector((state) => state.jobList.list);
+  const location = useLocation();
+  const searchParams = parseSearchQuery(location.search);
 
-  useLayoutEffect(() => {
-    // const searchParams = parseSearchQuery(location.search);
-    // save search
-    if (status === initial) dispatch(fetchJobList());
-  }, [status, dispatch]);
+  useEffect(() => {
+    if (status === initial) {
+      dispatch(saveSearchParams(searchParams));
+      dispatch(fetchJobList());
+    }
+  }, [status, dispatch, searchParams]);
 
   const errMsg = 'Error while getting jobs, please try again';
   const noResultsMsg = 'Nothing found';

@@ -47,10 +47,10 @@ export const getRelativeTimeSince = (date = Date.now()) => {
 
 export const parseSearchQuery = (str) => {
   const params = new URLSearchParams(str);
-  return [...params].reduce(
-    (acc, [key, value]) => ({ ...acc, [key]: value }),
-    {},
-  );
+  const description = params.get('search') || undefined;
+  const location = params.get('location') || undefined;
+  const isFullTime = params.get('full_time') === 'on';
+  return { description, location, isFullTime };
 };
 
 export const makeUrlQuery = ({ description, location, isFullTime, page }) => {

@@ -6,14 +6,14 @@ import Checkbox from '@components/common/Checkbox';
 import TextField from '@components/common/TextField';
 import Container from '@components/layout/Container';
 import { bool } from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { useBreakpoint } from '@/hooks';
-import { fetchJobList } from '@/store/jobsList/jobList.slice';
+import { fetchJobList, saveSearchParams } from '@/store/jobsList/jobList.slice';
 import { hexToRgba, makeUrlQuery } from '@/utils';
 import * as statuses from '@/utils/constants/statuses';
 
@@ -133,17 +133,18 @@ const Search = () => {
   const history = useHistory();
   const jobListStatus = useSelector((state) => state.jobList.status);
   const loading = jobListStatus === statuses.loading;
+  const search = useSelector((state) => state.jobList.params);
 
-  // FIXME temp stub
-  const search = {
-    description: '',
-    location: '',
-    isFullTime: false,
-  };
-  const [description, setDescription] = useState(search.description);
-  const [location, setLocation] = useState(search.location);
-  const [isFullTime, setFullTime] = useState(search.isFullTime);
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [isFullTime, setFullTime] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    setDescription(search.description);
+    setLocation(search.location);
+    setFullTime(search.isFullTime);
+  }, [search]);
 
   const handleDescriptionChange = ({ target: { value } }) => {
     setDescription(value);
@@ -162,11 +163,10 @@ const Search = () => {
     if (loading) return;
 
     const searchParams = { description, location, isFullTime };
+    dispatch(saveSearchParams(searchParams));
+    dispatch(fetchJobList(searchParams));
+
     const query = makeUrlQuery(searchParams);
-
-    // dispatch(saveSearch(searchParams));
-    dispatch(fetchJobList()); // FIXME pass seachParams
-
     history.push(`/?${query}`);
   };
 
