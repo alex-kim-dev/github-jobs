@@ -7,7 +7,7 @@ import preset from 'jss-preset-default';
 import { useLayoutEffect } from 'react';
 import { JssProvider, ThemeProvider } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import reset from 'reset-jss';
 
 import { baseurl } from '../siteMeta';
