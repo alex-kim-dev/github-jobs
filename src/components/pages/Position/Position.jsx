@@ -1,9 +1,17 @@
 import Container from '@components/layout/Container';
+import { useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { fetchJob } from '@/store/job/job.slice';
 import { selectJobById } from '@/store/jobsList/jobList.slice';
+import {
+  failed,
+  initial,
+  loading,
+  succeeded,
+} from '@/utils/constants/statuses';
 
 import ScrollToTop from '../../common/ScrollToTop';
 import Content from './Content';
@@ -23,51 +31,62 @@ const useStyles = createUseStyles({
 const Position = () => {
   const css = useStyles();
   const id = Number(useParams().id);
-  const job = useSelector(selectJobById(id));
+  const jobFromList = useSelector(selectJobById(id));
+  const fetchedJob = useSelector((state) => state.job.job);
+  const status = useSelector((state) => state.job.status);
+  const dispatch = useDispatch();
 
-  if (!job)
-    // TODO fetch!
+  useEffect(() => {
+    if (jobFromList) return;
+
+    dispatch(fetchJob(id));
+  }, [dispatch, jobFromList, id]);
+
+  const renderJob = (job) => {
+    if (!job) return null;
+
+    const {
+      company,
+      logo,
+      website,
+      postedAt,
+      description,
+      apply,
+      location,
+      position,
+      contract,
+    } = job;
+
     return (
       <>
         <ScrollToTop />
-        <Container maxWidth='sm'>No data</Container>
+        <article className={css.wrapper}>
+          <Container maxWidth='sm'>
+            <Heading data={{ company, website, logo }} />
+            <Content
+              data={{
+                position,
+                postedAt,
+                contract,
+                location,
+                website,
+                description,
+              }}
+            />
+            {apply && <Summary content={apply} />}
+          </Container>
+          <Cta data={{ position, company, website }} />
+        </article>
       </>
     );
+  };
 
-  const {
-    company,
-    logo,
-    website,
-    postedAt,
-    description,
-    apply,
-    location,
-    position,
-    contract,
-  } = job;
-
-  return (
-    <>
-      <ScrollToTop />
-      <article className={css.wrapper}>
-        <Container maxWidth='sm'>
-          <Heading data={{ company, website, logo }} />
-          <Content
-            data={{
-              position,
-              postedAt,
-              contract,
-              location,
-              website,
-              description,
-            }}
-          />
-          {apply && <Summary content={apply} />}
-        </Container>
-        <Cta data={{ position, company, website }} />
-      </article>
-    </>
-  );
+  return {
+    [initial]: () => renderJob(jobFromList),
+    [loading]: () => <Container maxWidth='sm'>Loading</Container>,
+    [failed]: () => <Container maxWidth='sm'>Error</Container>,
+    [succeeded]: () => renderJob(fetchedJob),
+  }[status]();
 };
 
 export default Position;
