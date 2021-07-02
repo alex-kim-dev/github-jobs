@@ -2,14 +2,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { makeUrlQuery } from '@/utils';
 import {
-  failed,
-  initial,
-  loading,
-  succeeded,
+  FAILED,
+  INITIAL,
+  LOADING,
+  SUCCEEDED,
 } from '@/utils/constants/statuses';
 
 const initialState = {
-  status: initial,
+  status: INITIAL,
   error: null,
   list: [],
   page: 1,
@@ -41,24 +41,24 @@ const jobListSlice = createSlice({
       state.list = initialState.list;
     },
     resetSearchParams: (state) => {
-      state.status = initial;
+      state.status = INITIAL;
     },
   },
   extraReducers: {
     [fetchJobList.pending]: (state) => {
-      state.status = loading;
+      state.status = LOADING;
     },
     [fetchJobList.fulfilled]: (state, action) => {
       const list = action.payload;
       state.list.push(
         ...list.filter(({ id }) => state.list.every((job) => job.id !== id)),
       );
-      state.status = succeeded;
+      state.status = SUCCEEDED;
       state.page += 1;
     },
     [fetchJobList.rejected]: (state, action) => {
       state.error = action.error;
-      state.status = failed;
+      state.status = FAILED;
     },
   },
 });

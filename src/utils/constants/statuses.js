@@ -1,4 +1,4 @@
-export const initial = 'initial';
-export const loading = 'loading';
-export const failed = 'failed';
-export const succeeded = 'succeeded';
+export const INITIAL = 'INITIAL';
+export const LOADING = 'LOADING';
+export const FAILED = 'FAILED';
+export const SUCCEEDED = 'SUCCEEDED';

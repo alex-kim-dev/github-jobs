@@ -132,7 +132,7 @@ const Search = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const jobListStatus = useSelector((state) => state.jobList.status);
-  const loading = jobListStatus === statuses.loading;
+  const loading = jobListStatus === statuses.LOADING;
   const search = useSelector((state) => state.jobList.params);
 
   const [description, setDescription] = useState('');

@@ -7,10 +7,10 @@ import { useParams } from 'react-router-dom';
 import { fetchJob } from '@/store/job/job.slice';
 import { selectJobById } from '@/store/jobsList/jobList.slice';
 import {
-  failed,
-  initial,
-  loading,
-  succeeded,
+  FAILED,
+  INITIAL,
+  LOADING,
+  SUCCEEDED,
 } from '@/utils/constants/statuses';
 
 import ScrollToTop from '../../common/ScrollToTop';
@@ -82,10 +82,10 @@ const Position = () => {
   };
 
   return {
-    [initial]: () => renderJob(jobFromList),
-    [loading]: () => <Container maxWidth='sm'>Loading</Container>,
-    [failed]: () => <Container maxWidth='sm'>Error</Container>,
-    [succeeded]: () => renderJob(fetchedJob),
+    [INITIAL]: () => renderJob(jobFromList),
+    [LOADING]: () => <Container maxWidth='sm'>Loading</Container>,
+    [FAILED]: () => <Container maxWidth='sm'>Error</Container>,
+    [SUCCEEDED]: () => renderJob(fetchedJob),
   }[status]();
 };
 

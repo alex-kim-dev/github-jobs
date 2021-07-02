@@ -11,7 +11,7 @@ import {
 import { createUseStyles } from 'react-jss';
 import { useSelector } from 'react-redux';
 
-import { dark } from '@/utils/constants/themes';
+import { DARK } from '@/utils/constants/themes';
 
 const useStyles = createUseStyles(({ colors: c }) => ({
   button: ({ variant, fullWidth, hasIcon, loading, currentTheme }) => {
@@ -24,12 +24,12 @@ const useStyles = createUseStyles(({ colors: c }) => ({
       secondary: {
         back: c.neutral,
         backHover: c.neutralAlt,
-        text: currentTheme === dark ? '#fff' : c.accent,
+        text: currentTheme === DARK ? '#fff' : c.accent,
       },
       neutral: {
         back: 'transparent',
         backHover: c.neutral,
-        text: currentTheme === dark ? '#fff' : c.textAlt,
+        text: currentTheme === DARK ? '#fff' : c.textAlt,
       },
     };
 

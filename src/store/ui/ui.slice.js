@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { light } from '@/utils/constants/themes';
+import { LIGHT } from '@/utils/constants/themes';
 
 const initialState = {
-  theme: light,
+  theme: LIGHT,
 };
 
 const uiSlice = createSlice({
