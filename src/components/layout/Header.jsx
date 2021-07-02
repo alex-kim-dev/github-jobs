@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 import { resetSearchParams } from '@/store/jobsList/jobList.slice';
 import { switchTheme } from '@/store/ui/ui.slice';
-import * as themes from '@/utils/constants/themes';
+import { DARK, LIGHT } from '@/utils/constants/themes';
 
 import Toggle from '../common/Toggle';
 import Container from './Container';
@@ -53,7 +53,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const handleToggle = () => {
-    const newTheme = theme === themes.light ? themes.dark : themes.light;
+    const newTheme = theme === LIGHT ? DARK : LIGHT;
     dispatch(switchTheme(newTheme));
   };
 
@@ -69,7 +69,7 @@ const Header = () => {
             iconLeft={<IconSun />}
             iconRight={<IconMoon />}
             onChange={handleToggle}
-            checked={theme === themes.dark}
+            checked={theme === DARK}
           />
         </div>
       </Container>

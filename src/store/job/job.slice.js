@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import {
-  failed,
-  initial,
-  loading,
-  succeeded,
+  FAILED,
+  INITIAL,
+  LOADING,
+  SUCCEEDED,
 } from '@/utils/constants/statuses';
 
 const initialState = {
-  status: initial,
+  status: INITIAL,
   error: null,
   job: null,
 };
@@ -25,15 +25,15 @@ const jobSlice = createSlice({
   initialState,
   extraReducers: {
     [fetchJob.pending]: (state) => {
-      state.status = loading;
+      state.status = LOADING;
     },
     [fetchJob.fulfilled]: (state, action) => {
       state.job = action.payload;
-      state.status = succeeded;
+      state.status = SUCCEEDED;
     },
     [fetchJob.rejected]: (state, action) => {
       state.error = action.error;
-      state.status = failed;
+      state.status = FAILED;
     },
   },
 });

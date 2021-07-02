@@ -8,10 +8,10 @@ import { useLocation } from 'react-router-dom';
 import { fetchJobList, saveSearchParams } from '@/store/jobsList/jobList.slice';
 import { parseSearchQuery } from '@/utils';
 import {
-  failed,
-  initial,
-  loading,
-  succeeded,
+  FAILED,
+  INITIAL,
+  LOADING,
+  SUCCEEDED,
 } from '@/utils/constants/statuses';
 
 import ErrorMessage from './ErrorMessage';
@@ -43,7 +43,7 @@ const Home = () => {
   const searchParams = parseSearchQuery(location.search);
 
   useEffect(() => {
-    if (status === initial) {
+    if (status === INITIAL) {
       dispatch(saveSearchParams(searchParams));
       dispatch(fetchJobList());
     }
@@ -53,13 +53,13 @@ const Home = () => {
   const noResultsMsg = 'Nothing found';
 
   const handleLoadMoreClick = () => {
-    if (status === loading) return;
+    if (status === LOADING) return;
     dispatch(fetchJobList());
   };
 
-  if (status === failed) return <ErrorMessage message={errMsg} />;
+  if (status === FAILED) return <ErrorMessage message={errMsg} />;
 
-  if (status === succeeded && list.length === 0)
+  if (status === SUCCEEDED && list.length === 0)
     return <ErrorMessage message={noResultsMsg} />;
 
   return (
@@ -68,7 +68,7 @@ const Home = () => {
       <Grid jobList={list} />
       <Container>
         <div className={css.loadMore}>
-          <Button loading={status === loading} onClick={handleLoadMoreClick}>
+          <Button loading={status === LOADING} onClick={handleLoadMoreClick}>
             Load More
           </Button>
         </div>

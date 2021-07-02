@@ -1,3 +1,5 @@
+import { DARK, LIGHT } from './utils/constants/themes';
+
 const values = {
   xs: 0,
   sm: 600,
@@ -23,7 +25,7 @@ export default {
     },
   },
   colors: {
-    light: {
+    [LIGHT]: {
       accent: '#5964e0',
       accentAlt: '#939bf4',
       neutral: '#eeeffc',
@@ -33,7 +35,7 @@ export default {
       text: '#19202d',
       textAlt: '#6e8098',
     },
-    dark: {
+    [DARK]: {
       accent: '#5964e0',
       accentAlt: '#939bf4',
       neutral: '#303642',

@@ -1,19 +1,20 @@
 import Fuse from 'fuse.js';
 import { rest } from 'msw';
 
-import data from './data.json';
+import jobList from './data.json';
 
-const url = 'https://jobs.github.com';
-const itemsInPage = 9;
+const API_URL = 'https://jobs.github.com';
+const ITEMS_IN_PAGE = 9;
+const RESPONSE_DELAY = 800;
 
 const filter = (description, location, fullTime) => {
   const filteredByContract = fullTime
-    ? data.filter(({ contract }) => contract === 'Full Time')
-    : data;
+    ? jobList.filter(({ contract }) => contract === 'Full Time')
+    : jobList;
 
   const filteredByContractAndLocation = location
-    ? filteredByContract.filter(
-        (job) => job.location.toLowerCase() === location.toLowerCase(),
+    ? filteredByContract.filter((job) =>
+        job.location.toLowerCase().includes(location.toLowerCase()),
       )
     : filteredByContract;
 
@@ -35,7 +36,7 @@ const filter = (description, location, fullTime) => {
 };
 
 export default [
-  rest.get(`${url}/positions.json`, (req, res, ctx) => {
+  rest.get(`${API_URL}/positions.json`, (req, res, ctx) => {
     const params = req.url.searchParams;
 
     const pageParam = Number(params.get('page'));
@@ -47,20 +48,22 @@ export default [
     const filtered = filter(description, location, fullTime);
 
     return res(
-      ctx.delay(800),
+      ctx.delay(RESPONSE_DELAY),
       ctx.status(200),
-      ctx.json(filtered.slice(itemsInPage * (page - 1), itemsInPage * page)),
+      ctx.json(
+        filtered.slice(ITEMS_IN_PAGE * (page - 1), ITEMS_IN_PAGE * page),
+      ),
     );
   }),
 
-  rest.get(`${url}/positions/:id`, (req, res, ctx) => {
+  rest.get(`${API_URL}/positions/:id`, (req, res, ctx) => {
     const { id } = req.params;
     if (!id.endsWith('.json')) return res(ctx.status(404));
 
     const idToFind = Number(id.replace(/\.json$/, ''));
-    const jobData = data.find((job) => job.id === idToFind);
+    const jobData = jobList.find((job) => job.id === idToFind);
     if (jobData === undefined) return res(ctx.status(404));
 
-    return res(ctx.delay(800), ctx.status(200), ctx.json(jobData));
+    return res(ctx.delay(RESPONSE_DELAY), ctx.status(200), ctx.json(jobData));
   }),
 ];

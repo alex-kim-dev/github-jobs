@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss';
 import { useSelector } from 'react-redux';
 
 import { useBreakpoint } from '@/hooks';
-import { dark } from '@/utils/constants/themes';
+import { DARK } from '@/utils/constants/themes';
 
 import Button from '../../common/Button';
 import HtmlContent from '../../common/HtmlContent';
@@ -11,7 +11,7 @@ import Status from '../../common/Status';
 
 const useStyles = createUseStyles(({ colors: c, breakpoints: { smUp } }) => ({
   description: {
-    color: (theme) => (theme === dark ? '#9daec2' : c.textAlt),
+    color: (theme) => (theme === DARK ? '#9daec2' : c.textAlt),
     lineHeight: '165%',
     marginTop: '3.2rem',
     wordBreak: 'break-word',

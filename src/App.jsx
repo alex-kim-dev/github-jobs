@@ -17,7 +17,7 @@ import Position from './components/pages/Position';
 import { useThemePreference } from './hooks';
 import { switchTheme } from './store/ui/ui.slice';
 import theme from './theme';
-import { dark } from './utils/constants/themes';
+import { DARK } from './utils/constants/themes';
 
 const globalStyles = {
   '@global': {
@@ -63,7 +63,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-    if (isDarkThemePreferred) dispatch(switchTheme(dark));
+    if (isDarkThemePreferred) dispatch(switchTheme(DARK));
   }, [isDarkThemePreferred, dispatch]);
 
   return (
