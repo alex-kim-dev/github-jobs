@@ -22,11 +22,12 @@ const initialState = {
 
 export const fetchJobList = createAsyncThunk(
   'jobList/fetch',
-  (_, { getState }) => {
+  async (_, { getState }) => {
     const url = new URL('https://jobs.github.com/positions.json');
     const { page, params } = getState().jobList;
     url.search = makeUrlQuery({ page, ...params });
-    return fetch(url).then((response) => response.json());
+    const response = await fetch(url);
+    return response.json();
   },
 );
 
