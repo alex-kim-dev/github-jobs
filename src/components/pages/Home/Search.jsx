@@ -14,7 +14,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useBreakpoint } from '@/hooks';
 import { fetchJobList, saveSearchParams } from '@/store/jobsList/jobList.slice';
-import { hexToRgba, makeUrlQuery } from '@/utils';
+import { hexToRgba, makeSearchQuery } from '@/utils';
 import * as statuses from '@/utils/constants/statuses';
 
 ReactModal.setAppElement('#root');
@@ -166,7 +166,7 @@ const Search = () => {
     dispatch(saveSearchParams(searchParams));
     dispatch(fetchJobList(searchParams));
 
-    const query = makeUrlQuery(searchParams);
+    const query = makeSearchQuery(searchParams);
     history.push(`/?${query}`);
   };
 

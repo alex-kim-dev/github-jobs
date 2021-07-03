@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { makeUrlQuery } from '@/utils';
+import JobsAPI from '@/services/api/JobsAPI';
 import {
   FAILED,
   INITIAL,
@@ -23,11 +23,9 @@ const initialState = {
 export const fetchJobList = createAsyncThunk(
   'jobList/fetch',
   async (_, { getState }) => {
-    const url = new URL('https://jobs.github.com/positions.json');
     const { page, params } = getState().jobList;
-    url.search = makeUrlQuery({ page, ...params });
-    const response = await fetch(url);
-    return response.json();
+    const api = new JobsAPI();
+    return api.fetchJobList({ page, ...params });
   },
 );
 

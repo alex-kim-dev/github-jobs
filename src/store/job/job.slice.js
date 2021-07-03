@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+import JobsAPI from '@/services/api/JobsAPI';
 import {
   FAILED,
   INITIAL,
@@ -13,25 +14,23 @@ const initialState = {
   job: null,
 };
 
-export const fetchJob = createAsyncThunk('job/fetch', async (id) => {
-  const response = await fetch(`https://jobs.github.com/positions/${id}.json`);
-  if (response.status === 404)
-    throw new Error(`The job with id ${id} is not found`);
-  return response.json();
+export const fetchJobById = createAsyncThunk('job/fetch', async (id) => {
+  const api = new JobsAPI();
+  return api.fetchJobById(id);
 });
 
 const jobSlice = createSlice({
   name: 'job',
   initialState,
   extraReducers: {
-    [fetchJob.pending]: (state) => {
+    [fetchJobById.pending]: (state) => {
       state.status = LOADING;
     },
-    [fetchJob.fulfilled]: (state, action) => {
+    [fetchJobById.fulfilled]: (state, action) => {
       state.job = action.payload;
       state.status = SUCCEEDED;
     },
-    [fetchJob.rejected]: (state, action) => {
+    [fetchJobById.rejected]: (state, action) => {
       state.error = action.error;
       state.status = FAILED;
     },

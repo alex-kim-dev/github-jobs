@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { fetchJob } from '@/store/job/job.slice';
+import { fetchJobById } from '@/store/job/job.slice';
 import { selectJobById } from '@/store/jobsList/jobList.slice';
 import {
   FAILED,
@@ -39,7 +39,7 @@ const Position = () => {
   useEffect(() => {
     if (jobFromList) return;
 
-    dispatch(fetchJob(id));
+    dispatch(fetchJobById(id));
   }, [dispatch, jobFromList, id]);
 
   const renderJob = (job) => {
