@@ -1,7 +1,3 @@
-// const corsProxy = 'https://cors.bridged.cc/';
-const jobsListEndpoint = 'https://jobs.github.com/positions.json';
-const jobEndpoint = (id) => `https://jobs.github.com/positions/${id}.json`;
-
 export const capitalize = (str) => `${str[0].toUpperCase()}${str.slice(1)}`;
 
 export const hexToRgba = (hex, alpha) => {
@@ -49,35 +45,20 @@ export const parseSearchQuery = (str) => {
   const params = new URLSearchParams(str);
   const description = params.get('search') || undefined;
   const location = params.get('location') || undefined;
-  const isFullTime = params.get('full_time') === 'on';
+  const isFullTime = params.get('full_time') === 'on' || undefined;
   return { description, location, isFullTime };
 };
 
-export const makeUrlQuery = ({ description, location, isFullTime, page }) => {
+export const makeSearchQuery = ({
+  description,
+  location,
+  isFullTime,
+  page,
+}) => {
   const query = new URLSearchParams();
   if (description) query.append('search', description);
   if (location) query.append('location', location);
   if (isFullTime) query.append('full_time', 'on');
   if (page) query.append('page', page);
   return query;
-};
-
-export const makeJobsListUrl = (searchParams) => {
-  const url = new URL(jobsListEndpoint);
-  url.search = makeUrlQuery(searchParams);
-  return url;
-};
-
-export const makeJobUrl = (id) => {
-  const url = new URL(jobEndpoint(id));
-  return url;
-};
-
-export const getSearchParams = () => {
-  const query = new URLSearchParams(window.location.search);
-  return {
-    description: query.get('search') ?? '',
-    location: query.get('location') ?? '',
-    isFullTime: query.get('full_time') === 'on',
-  };
 };
