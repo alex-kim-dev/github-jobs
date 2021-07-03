@@ -2,6 +2,12 @@ import '@fontsource/kumbh-sans/300.css';
 import '@fontsource/kumbh-sans/400.css';
 import '@fontsource/kumbh-sans/700.css';
 
+import { Header, Wrapper } from '@components/layout';
+import { DARK } from '@constants/themes';
+import { useThemePreference } from '@hooks';
+import { switchTheme } from '@store/ui/ui.slice';
+import { HomePage } from '@views/Home';
+import { JobPage } from '@views/Job';
 import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';
 import { useLayoutEffect } from 'react';
@@ -10,14 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import reset from 'reset-jss';
 
-import Header from './components/layout/Header';
-import Wrapper from './components/layout/Wrapper';
-import Home from './components/pages/Home';
-import Position from './components/pages/Position';
-import { useThemePreference } from './hooks';
-import { switchTheme } from './store/ui/ui.slice';
 import theme from './theme';
-import { DARK } from './utils/constants/themes';
 
 const globalStyles = {
   '@global': {
@@ -74,10 +73,10 @@ const App = () => {
             <Header />
             <Switch>
               <Route exact path='/:id'>
-                <Position />
+                <JobPage />
               </Route>
               <Route exact path='/'>
-                <Home />
+                <HomePage />
               </Route>
             </Switch>
           </Wrapper>

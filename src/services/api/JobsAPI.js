@@ -1,4 +1,4 @@
-import { makeSearchQuery } from '@/utils';
+import { makeSearchQuery } from '@helpers';
 
 const CORS_PROXY = 'https://cors.bridged.cc';
 const API_URL = 'https://jobs.github.com';

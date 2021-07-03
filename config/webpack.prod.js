@@ -1,7 +1,7 @@
 const { merge } = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const { url, baseurl } = require('../siteMeta');
+const { url, baseurl } = require('../src/siteMeta');
 
 const paths = require('./paths');
 const common = require('./webpack.common');

@@ -4,7 +4,14 @@
     "paths": {
       "@/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@services/*": ["./src/services/*"],
+      "@store/*": ["./src/store/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@constants/*": ["./src/utils/constants/*"],
+      "@helpers/*": ["./src/utils/helpers/*"],
+      "@hooks/*": ["./src/utils/hooks/*"],
+      "@views/*": ["./src/views/*"]
     }
   }
 }
