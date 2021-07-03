@@ -1,10 +1,10 @@
+import store from '@store/';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { baseurl } from '../siteMeta';
 import mswWorker from './apiMock/browser';
 import App from './App';
-import store from './store';
+import { baseurl } from './siteMeta';
 
 mswWorker.start({
   onUnhandledRequest: 'bypass',

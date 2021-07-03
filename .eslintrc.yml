@@ -13,18 +13,20 @@ plugins:
   - simple-import-sort
   - jss
 rules:
-  simple-import-sort/imports: error
-  simple-import-sort/exports: error
-  sort-imports: off
   import/order: off
-  react/require-default-props:
-    - error
-    - ignoreFunctionalComponents: true
+  import/prefer-default-export: off
+  jss/sort-jss-keys: error
   jsx-a11y/label-has-associated-control:
     - error
     - assert: either
+  react/jsx-props-no-spreading: off
   react/react-in-jsx-scope: off
-  jss/sort-jss-keys: error
+  react/require-default-props:
+    - error
+    - ignoreFunctionalComponents: true
+  simple-import-sort/exports: error
+  simple-import-sort/imports: error
+  sort-imports: off
 
 overrides:
   - files: config/**/*.js
