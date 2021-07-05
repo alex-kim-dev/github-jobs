@@ -1,6 +1,7 @@
-import store from '@store/';
+import store from '@store';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 
 import mswWorker from './apiMock/browser';
 import App from './App';
@@ -17,8 +18,10 @@ mswWorker.start({
 });
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <StrictMode>
+    <StoreProvider store={store}>
+      <App />
+    </StoreProvider>
+  </StrictMode>,
   document.getElementById('root'),
 );
