@@ -1,6 +1,6 @@
 import Feedback from './Feedback/Feedback';
 import HtmlContent from './HtmlContent/HtmlContent';
-import Logo from './Logo/Logo';
+import Img from './Img/Img';
 import Status from './Status/Status';
 
-export { Feedback, HtmlContent, Logo, Status };
+export { Feedback, HtmlContent, Img, Status };

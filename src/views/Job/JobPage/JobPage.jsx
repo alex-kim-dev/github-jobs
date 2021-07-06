@@ -55,6 +55,7 @@ const JobPage = () => {
     const {
       company,
       logo,
+      logoBackground,
       website,
       postedAt,
       description,
@@ -69,7 +70,9 @@ const JobPage = () => {
         <ScrollToTop />
         <article className={css.wrapper}>
           <Container maxWidth='sm'>
-            <JobHeading data={{ company, website, logo }} />
+            <JobHeading
+              data={{ company, website, logo, logoBg: logoBackground }}
+            />
             <JobContent
               data={{
                 position,
