@@ -1,6 +1,7 @@
 import { Button } from '@components/controls';
 import { Container } from '@components/layout';
-import { arrayOf, bool, func, shape } from 'prop-types';
+import { jobPropType } from '@utils/types';
+import { arrayOf, bool, func } from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
 import JobCard from '../JobCard/JobCard';
@@ -60,7 +61,7 @@ const JobList = ({ list, isLoading = false, onLoadMore }) => {
 };
 
 JobList.propTypes = {
-  list: arrayOf(shape({})).isRequired,
+  list: arrayOf(jobPropType).isRequired,
   isLoading: bool,
   onLoadMore: func,
 };

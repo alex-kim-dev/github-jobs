@@ -1,5 +1,5 @@
 import { Logo, Status } from '@components/content';
-import { shape } from 'prop-types';
+import { jobPropType } from '@utils/types';
 import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom';
 
@@ -86,7 +86,7 @@ const JobCard = ({ job }) => {
 };
 
 JobCard.propTypes = {
-  job: shape().isRequired,
+  job: jobPropType.isRequired,
 };
 
 export default JobCard;
