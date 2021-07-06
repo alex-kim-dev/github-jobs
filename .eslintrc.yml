@@ -29,7 +29,7 @@ rules:
   sort-imports: off
 
 overrides:
-  - files: config/**/*.js
+  - files: [config/**/*.js, src/utils/helpers/wdyr.js]
     rules:
       simple-import-sort/imports: off
       import/no-extraneous-dependencies: off

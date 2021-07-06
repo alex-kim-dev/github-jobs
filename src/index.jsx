@@ -1,3 +1,5 @@
+import '@helpers/wdyr';
+
 import store from '@store';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
