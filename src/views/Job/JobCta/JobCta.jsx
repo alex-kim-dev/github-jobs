@@ -1,9 +1,8 @@
 import { Button } from '@components/controls';
 import { Container } from '@components/layout';
 import { useBreakpoint } from '@hooks';
+import { jobPropType } from '@utils/types';
 import { createUseStyles } from 'react-jss';
-
-import { jobPropType } from '@/utils/types';
 
 const useStyles = createUseStyles(({ colors: c }) => ({
   flex: {

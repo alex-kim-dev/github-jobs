@@ -1,6 +1,5 @@
+import { LIGHT } from '@constants/themes';
 import { createSlice } from '@reduxjs/toolkit';
-
-import { LIGHT } from '@/utils/constants/themes';
 
 const initialState = {
   theme: LIGHT,

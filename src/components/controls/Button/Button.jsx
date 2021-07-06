@@ -1,3 +1,4 @@
+import { DARK } from '@constants/themes';
 import {
   bool,
   element,
@@ -9,11 +10,9 @@ import {
 import { createUseStyles } from 'react-jss';
 import { useSelector } from 'react-redux';
 
-import { DARK } from '@/utils/constants/themes';
-
 const useStyles = createUseStyles(({ colors: c }) => ({
   button: ({ variant, fullWidth, hasIcon, loading, currentTheme }) => {
-    const variantColors = {
+    const btnColors = {
       primary: {
         back: c.accent,
         backHover: c.accentAlt,
@@ -32,10 +31,10 @@ const useStyles = createUseStyles(({ colors: c }) => ({
     };
 
     return {
-      backgroundColor: variantColors[variant].back,
+      backgroundColor: btnColors[variant].back,
       border: 0,
       borderRadius: '0.5rem',
-      color: loading ? 'transparent' : variantColors[variant].text,
+      color: loading ? 'transparent' : btnColors[variant].text,
       cursor: 'pointer',
       display: 'inline-flex',
       flex: '0 0 auto',
@@ -53,11 +52,11 @@ const useStyles = createUseStyles(({ colors: c }) => ({
       width: fullWidth && '100%',
 
       '& svg path': {
-        fill: loading ? 'transparent' : variantColors[variant].text,
+        fill: loading ? 'transparent' : btnColors[variant].text,
       },
 
       '&:hover': {
-        backgroundColor: variantColors[variant].backHover,
+        backgroundColor: btnColors[variant].backHover,
       },
     };
   },
