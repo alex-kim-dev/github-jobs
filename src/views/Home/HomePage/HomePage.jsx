@@ -25,10 +25,13 @@ const useStyles = createUseStyles(({ breakpoints: { mdUp } }) => ({
 const HomePage = () => {
   const css = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const status = useSelector((state) => state.jobList.status);
   const list = useSelector((state) => state.jobList.list);
-  const location = useLocation();
+
   const searchParams = parseSearchQuery(location.search);
+  const isLastPage = list.length % ITEMS_IN_PAGE !== 0;
 
   useEffect(() => {
     if (status === INITIAL) {
@@ -36,8 +39,6 @@ const HomePage = () => {
       dispatch(fetchJobList());
     }
   }, [status, dispatch, searchParams]);
-
-  const isLastPage = list.length % ITEMS_IN_PAGE !== 0;
 
   const loadMore = () => {
     if (status === LOADING) return;
@@ -61,7 +62,5 @@ const HomePage = () => {
     </main>
   );
 };
-
-HomePage.propTypes = {};
 
 export default HomePage;
