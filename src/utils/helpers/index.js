@@ -35,3 +35,16 @@ export const makeSearchQuery = ({
   if (page) query.append('page', page);
   return query;
 };
+
+export const genHtmlContent = (job) =>
+  job.description.concat(
+    '<h2>Requirements</h2>',
+    [job.requirements, job.role]
+      .map(
+        ({ content, items }) =>
+          `<p>${content}</p><ul>${items
+            .map((item) => `<li>${item}</li>`)
+            .join('')}</ul>`,
+      )
+      .join('<h2>What You Will Do</h2>'),
+  );

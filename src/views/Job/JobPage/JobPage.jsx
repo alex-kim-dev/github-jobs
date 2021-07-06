@@ -52,16 +52,7 @@ const JobPage = () => {
   const renderJob = (job) => {
     if (!job) return null;
 
-    const {
-      company,
-      website,
-      postedAt,
-      description,
-      apply,
-      location,
-      position,
-      contract,
-    } = job;
+    const { company, website, apply, position } = job;
 
     return (
       <>
@@ -69,16 +60,7 @@ const JobPage = () => {
         <article className={css.wrapper}>
           <Container maxWidth='sm'>
             <JobHeading job={job} />
-            <JobContent
-              data={{
-                position,
-                postedAt,
-                contract,
-                location,
-                website,
-                description,
-              }}
-            />
+            <JobContent job={job} />
             {apply && <JobSummary content={apply} />}
           </Container>
           <JobCta data={{ position, company, website }} />

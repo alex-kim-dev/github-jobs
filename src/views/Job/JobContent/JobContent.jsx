@@ -1,8 +1,9 @@
 import { HtmlContent, Status } from '@components/content';
 import { Button } from '@components/controls';
 import { DARK } from '@constants/themes';
+import { genHtmlContent } from '@helpers';
 import { useBreakpoint } from '@hooks';
-import { shape, string } from 'prop-types';
+import { jobPropType } from '@utils/types';
 import { createUseStyles } from 'react-jss';
 import { useSelector } from 'react-redux';
 
@@ -67,25 +68,24 @@ const useStyles = createUseStyles(({ colors: c, breakpoints: { smUp } }) => ({
   },
 }));
 
-const JobContent = ({
-  data: { postedAt, contract, position, location, website, description },
-}) => {
+const JobContent = ({ job }) => {
   const theme = useSelector((state) => state.ui.theme);
   const css = useStyles(theme);
   const isSmUp = useBreakpoint('smUp');
+  const html = genHtmlContent(job);
 
   return (
     <section className={css.section}>
       <div className={css.header}>
         <div>
-          <Status list={[postedAt, contract]} />
-          <h3 className={css.heading}>{position}</h3>
-          <p className={css.location}>{location}</p>
+          <Status list={[job.postedAt, job.contract]} />
+          <h1 className={css.heading}>{job.position}</h1>
+          <p className={css.location}>{job.location}</p>
         </div>
         <Button
           fullWidth={isSmUp ? undefined : true}
           as='a'
-          href={website || '#'}
+          href={job.website || '#'}
           target='_blank'
           rel='noreferrer'
         >
@@ -93,21 +93,14 @@ const JobContent = ({
         </Button>
       </div>
       <div className={css.description}>
-        <HtmlContent html={description} />
+        <HtmlContent html={html} />
       </div>
     </section>
   );
 };
 
 JobContent.propTypes = {
-  data: shape({
-    position: string,
-    postedAt: string,
-    contract: string,
-    location: string,
-    website: string,
-    description: string,
-  }).isRequired,
+  job: jobPropType.isRequired,
 };
 
 export default JobContent;
