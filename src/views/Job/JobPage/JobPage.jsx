@@ -1,12 +1,13 @@
 import { Feedback } from '@components/content';
 import { Container, ScrollToTop } from '@components/layout';
 import { FAILED, INITIAL, LOADING, SUCCEEDED } from '@constants/statuses';
-import { fetchJobById } from '@store/job/job.slice';
-import { selectJobById } from '@store/jobsList/jobList.slice';
-import { useEffect } from 'react';
+import { selectJobById } from '@store/jobs/jobs.slice';
+import { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
+import JobsAPI from '@/services/api/JobsAPI';
 
 import JobContent from '../JobContent/JobContent';
 import JobCta from '../JobCta/JobCta';
@@ -30,15 +31,23 @@ const JobPage = () => {
   const css = useStyles();
   const id = Number(useParams().id);
   const jobFromList = useSelector(selectJobById(id));
-  const fetchedJob = useSelector((state) => state.job.job);
-  const status = useSelector((state) => state.job.status);
-  const dispatch = useDispatch();
+  const [fetchedJob, setFetchedJob] = useState(null);
+  const [status, setStatus] = useState(INITIAL);
 
   useEffect(() => {
     if (jobFromList) return;
 
-    dispatch(fetchJobById(id));
-  }, [dispatch, jobFromList, id]);
+    setStatus(LOADING);
+    new JobsAPI()
+      .fetchJobById(id)
+      .then((job) => {
+        setFetchedJob(job);
+        setStatus(SUCCEEDED);
+      })
+      .catch(() => {
+        setStatus(FAILED);
+      });
+  }, [jobFromList, id]);
 
   const renderJob = (job) => {
     if (!job) return null;

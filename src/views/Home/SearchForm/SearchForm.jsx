@@ -6,7 +6,7 @@ import { Container } from '@components/layout';
 import * as statuses from '@constants/statuses';
 import { hexToRgba, makeSearchQuery } from '@helpers';
 import { useBreakpoint } from '@hooks';
-import { fetchJobList, saveSearchParams } from '@store/jobsList/jobList.slice';
+import { fetchJobList, saveSearchParams } from '@store/jobs/jobs.slice';
 import { bool } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
