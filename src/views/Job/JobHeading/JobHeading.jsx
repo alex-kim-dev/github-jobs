@@ -91,7 +91,7 @@ const JobHeading = ({ job }) => {
       </div>
       <div className={css.body}>
         <div>
-          <h2 className={css.heading}>{job.company}</h2>
+          <p className={css.heading}>{job.company}</p>
           <p className={css.subheading}>{hostname}</p>
         </div>
         <Button
