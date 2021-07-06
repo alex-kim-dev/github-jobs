@@ -52,8 +52,6 @@ const JobPage = () => {
   const renderJob = (job) => {
     if (!job) return null;
 
-    const { company, website, apply, position } = job;
-
     return (
       <>
         <ScrollToTop />
@@ -61,9 +59,9 @@ const JobPage = () => {
           <Container maxWidth='sm'>
             <JobHeading job={job} />
             <JobContent job={job} />
-            {apply && <JobSummary content={apply} />}
+            {job.apply && <JobSummary content={job.apply} />}
           </Container>
-          <JobCta data={{ position, company, website }} />
+          <JobCta job={job} />
         </article>
       </>
     );

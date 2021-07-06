@@ -49,7 +49,7 @@ const JobSummary = ({ content }) => {
 
   return (
     <section className={css.section}>
-      <h3 className={css.heading}>How to Apply</h3>
+      <h2 className={css.heading}>How to Apply</h2>
       <div className={css.content}>
         <HtmlContent html={content} />
       </div>
