@@ -1,35 +1,17 @@
 import { ErrorMessage } from '@components/content';
-import { Button } from '@components/controls';
-import { Container } from '@components/layout';
 import { FAILED, INITIAL, LOADING, SUCCEEDED } from '@constants/statuses';
 import { parseSearchQuery } from '@helpers';
 import { fetchJobList, saveSearchParams } from '@store/jobsList/jobList.slice';
 import { useEffect } from 'react';
-import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+
+import { ITEMS_IN_PAGE } from '@/apiMock/handlers';
 
 import JobList from '../JobList/JobList';
 import SearchForm from '../SearchForm/SearchForm';
 
-const useStyles = createUseStyles(({ breakpoints: { smUp, mdUp } }) => ({
-  loadMore: {
-    marginBottom: '6.2rem',
-    marginTop: '3.2rem',
-    textAlign: 'center',
-
-    [smUp]: {
-      marginTop: '5.6rem',
-    },
-
-    [mdUp]: {
-      marginBottom: '10.4rem',
-    },
-  },
-}));
-
 const HomePage = () => {
-  const css = useStyles();
   const dispatch = useDispatch();
   const status = useSelector((state) => state.jobList.status);
   const list = useSelector((state) => state.jobList.list);
@@ -45,8 +27,9 @@ const HomePage = () => {
 
   const errMsg = 'Error while getting jobs, please try again';
   const noResultsMsg = 'Nothing found';
+  const isLastPage = list.length % ITEMS_IN_PAGE !== 0;
 
-  const handleLoadMoreClick = () => {
+  const loadMore = () => {
     if (status === LOADING) return;
     dispatch(fetchJobList());
   };
@@ -59,14 +42,11 @@ const HomePage = () => {
   return (
     <>
       <SearchForm />
-      <JobList jobList={list} />
-      <Container>
-        <div className={css.loadMore}>
-          <Button loading={status === LOADING} onClick={handleLoadMoreClick}>
-            Load More
-          </Button>
-        </div>
-      </Container>
+      <JobList
+        list={list}
+        isLoading={status === LOADING}
+        onLoadMore={isLastPage ? undefined : loadMore}
+      />
     </>
   );
 };

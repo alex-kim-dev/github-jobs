@@ -4,7 +4,7 @@ import { rest } from 'msw';
 import jobList from './data.json';
 
 const API_URL = 'https://jobs.github.com';
-const ITEMS_IN_PAGE = 9;
+export const ITEMS_IN_PAGE = 9;
 const RESPONSE_DELAY = 800;
 
 const filter = (description, location, fullTime) => {

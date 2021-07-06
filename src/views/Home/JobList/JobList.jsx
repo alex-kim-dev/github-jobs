@@ -1,5 +1,6 @@
+import { Button } from '@components/controls';
 import { Container } from '@components/layout';
-import { arrayOf, shape } from 'prop-types';
+import { arrayOf, bool, func, shape } from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
 import JobCard from '../JobCard/JobCard';
@@ -22,26 +23,52 @@ const useStyles = createUseStyles(({ breakpoints: { smUp, mdUp } }) => ({
       marginTop: '8rem',
     },
   },
+
+  loadMore: {
+    marginTop: '3.2rem',
+    textAlign: 'center',
+
+    [smUp]: {
+      marginTop: '5.6rem',
+    },
+  },
+
+  pb: {
+    paddingBottom: '6.2rem',
+
+    [mdUp]: {
+      paddingBottom: '10.4rem',
+    },
+  },
 }));
 
-const JobList = ({ jobList }) => {
+const JobList = ({ list, isLoading = false, onLoadMore }) => {
   const css = useStyles();
 
   return (
-    <Container>
+    <Container className={css.pb}>
       <ul className={css.grid}>
-        {jobList.map((job) => (
+        {list.map((job) => (
           <li key={job.id}>
             <JobCard job={job} />
           </li>
         ))}
       </ul>
+      {onLoadMore && (
+        <div className={css.loadMore}>
+          <Button loading={isLoading} onClick={onLoadMore}>
+            Load More
+          </Button>
+        </div>
+      )}
     </Container>
   );
 };
 
 JobList.propTypes = {
-  jobList: arrayOf(shape({})).isRequired,
+  list: arrayOf(shape({})).isRequired,
+  isLoading: bool,
+  onLoadMore: func,
 };
 
 export default JobList;

@@ -1,6 +1,6 @@
 import { capitalize } from '@helpers';
 import clsx from 'clsx';
-import { node, oneOf } from 'prop-types';
+import { node, oneOf, string } from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles(
@@ -39,12 +39,16 @@ const useStyles = createUseStyles(
   }),
 );
 
-const Container = ({ maxWidth = 'md', children }) => {
+const Container = ({ maxWidth = 'md', className, children }) => {
   const css = useStyles();
 
   return (
     <div
-      className={clsx(css.container, css[`maxWidth${capitalize(maxWidth)}`])}
+      className={clsx(
+        css.container,
+        css[`maxWidth${capitalize(maxWidth)}`],
+        className,
+      )}
     >
       {children}
     </div>
@@ -53,6 +57,7 @@ const Container = ({ maxWidth = 'md', children }) => {
 
 Container.propTypes = {
   maxWidth: oneOf(['sm', 'md']),
+  className: string,
   children: node,
 };
 
