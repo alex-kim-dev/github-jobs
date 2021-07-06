@@ -2,12 +2,11 @@ import IconFilter from '@assets/icons/icon-filter.svg';
 import IconLocation from '@assets/icons/icon-location.svg';
 import IconSearch from '@assets/icons/icon-search.svg';
 import { Button, Checkbox, TextField } from '@components/controls';
-import { Container } from '@components/layout';
+import { Container, Separator } from '@components/layout';
 import * as statuses from '@constants/statuses';
-import { hexToRgba, makeSearchQuery } from '@helpers';
+import { makeSearchQuery } from '@helpers';
 import { useBreakpoint } from '@hooks';
 import { fetchJobList, saveSearchParams } from '@store/jobs/jobs.slice';
-import { bool } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import ReactModal from 'react-modal';
@@ -16,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 
 ReactModal.setAppElement('#root');
 
-const useSearchStyles = createUseStyles(
+const useStyles = createUseStyles(
   ({ colors: c, breakpoints: { smUp, mdUp } }) => ({
     filter: {
       padding: '1.6rem 0',
@@ -104,33 +103,16 @@ const useSearchStyles = createUseStyles(
   }),
 );
 
-const useSeparatorStyles = createUseStyles(({ colors: c }) => ({
-  separator: ({ vertical }) => ({
-    backgroundColor: hexToRgba(c.textAlt, 0.2),
-    height: vertical ? '100%' : '0.1rem',
-    width: vertical ? '0.1rem' : '100%',
-  }),
-}));
-
-const Separator = ({ vertical = false }) => {
-  const css = useSeparatorStyles({ vertical });
-
-  return <div className={css.separator} />;
-};
-
-Separator.propTypes = {
-  vertical: bool,
-};
-
 const SearchForm = () => {
-  const css = useSearchStyles();
+  const css = useStyles();
   const isSmUp = useBreakpoint('smUp');
   const isMdUp = useBreakpoint('mdUp');
   const dispatch = useDispatch();
   const history = useHistory();
+
   const jobListStatus = useSelector((state) => state.jobList.status);
-  const loading = jobListStatus === statuses.LOADING;
   const search = useSelector((state) => state.jobList.params);
+  const isLoading = jobListStatus === statuses.LOADING;
 
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -155,9 +137,13 @@ const SearchForm = () => {
     setFullTime(checked);
   };
 
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (loading) return;
+    if (isLoading) return;
 
     const searchParams = { description, location, isFullTime };
     dispatch(saveSearchParams(searchParams));
@@ -167,19 +153,38 @@ const SearchForm = () => {
     history.push(`/?${query}`);
   };
 
-  const extendedSearch = (
+  const descriptionField = (
+    <div className={css.description}>
+      <TextField
+        label='description'
+        placeholder='Filter by title, companies, expertise…'
+        icon={isSmUp ? <IconSearch /> : null}
+        value={description}
+        onChange={handleDescriptionChange}
+      />
+    </div>
+  );
+
+  const locationField = (
+    <div className={css.location}>
+      <TextField
+        label='location'
+        placeholder='Filter by location…'
+        icon={<IconLocation />}
+        value={location}
+        onChange={handleLocationChange}
+      />
+    </div>
+  );
+
+  const renderExtended = () => (
     <>
+      {descriptionField}
       <Separator vertical />
-      <div className={css.location}>
-        <TextField
-          label='location'
-          placeholder='Filter by location…'
-          icon={<IconLocation />}
-          value={location}
-          onChange={handleLocationChange}
-        />
-      </div>
+
+      {locationField}
       <Separator vertical />
+
       <div className={css.fullTime}>
         <Checkbox
           label={`Full Time${isMdUp ? ' Only' : ''}`}
@@ -187,16 +192,19 @@ const SearchForm = () => {
           onChange={handleFullTimeChange}
         />
       </div>
+
       <div className={css.submit}>
-        <Button type='submit' fullWidth loading={loading}>
+        <Button type='submit' fullWidth loading={isLoading}>
           Search
         </Button>
       </div>
     </>
   );
 
-  const compactSearch = (
+  const renderCompact = () => (
     <>
+      {descriptionField}
+
       <div className={css.filter}>
         <Button
           type='button'
@@ -206,64 +214,47 @@ const SearchForm = () => {
           <IconFilter />
         </Button>
       </div>
+
       <div className={css.submit}>
-        <Button type='submit' loading={loading}>
+        <Button type='submit' loading={isLoading}>
           <IconSearch viewBox='0 0 24 24' width='20' height='20' />
         </Button>
       </div>
-    </>
-  );
 
-  const modal = (
-    <ReactModal
-      isOpen={!isSmUp && isModalOpen}
-      onRequestClose={() => setModalOpen(false)}
-      contentLabel='Additional search filters'
-      className={css.modal}
-      overlayClassName={css.overlay}
-    >
-      <div className={css.location}>
-        <TextField
-          label='location'
-          placeholder='Filter by location…'
-          icon={<IconLocation />}
-          value={location}
-          onChange={handleLocationChange}
-        />
-      </div>
-      <Separator />
-      <div className={css.modalBody}>
-        <Checkbox
-          label='Full Time Only'
-          checked={isFullTime}
-          onChange={handleFullTimeChange}
-        />
-        <Button
-          type='submit'
-          fullWidth
-          form='searchForm'
-          onClick={() => setModalOpen(false)}
-        >
-          Search
-        </Button>
-      </div>
-    </ReactModal>
+      <ReactModal
+        isOpen={!isSmUp && isModalOpen}
+        onRequestClose={handleModalClose}
+        contentLabel='Additional search filters'
+        className={css.modal}
+        overlayClassName={css.overlay}
+      >
+        {locationField}
+        <Separator />
+
+        <div className={css.modalBody}>
+          <Checkbox
+            label='Full Time Only'
+            checked={isFullTime}
+            onChange={handleFullTimeChange}
+          />
+
+          <Button
+            type='submit'
+            fullWidth
+            form='searchForm'
+            onClick={handleModalClose}
+          >
+            Search
+          </Button>
+        </div>
+      </ReactModal>
+    </>
   );
 
   return (
     <Container>
       <form id='searchForm' className={css.form} onSubmit={handleSubmit}>
-        <div className={css.description}>
-          <TextField
-            label='description'
-            placeholder='Filter by title, companies, expertise…'
-            icon={isSmUp ? <IconSearch /> : null}
-            value={description}
-            onChange={handleDescriptionChange}
-          />
-        </div>
-        {isSmUp ? extendedSearch : compactSearch}
-        {modal}
+        {isSmUp ? renderExtended() : renderCompact()}
       </form>
     </Container>
   );
