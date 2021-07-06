@@ -66,4 +66,6 @@ JobList.propTypes = {
   onLoadMore: func,
 };
 
+JobList.whyDidYouRender = true;
+
 export default JobList;

@@ -260,4 +260,6 @@ const SearchForm = () => {
   );
 };
 
+SearchForm.whyDidYouRender = true;
+
 export default SearchForm;
