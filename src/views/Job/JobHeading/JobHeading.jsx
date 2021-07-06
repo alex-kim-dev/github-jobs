@@ -1,6 +1,5 @@
-import { Logo } from '@components/content';
+import { Img } from '@components/content';
 import { Button } from '@components/controls';
-import { useBreakpoint } from '@hooks';
 import { shape, string } from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
@@ -16,16 +15,21 @@ const useStyles = createUseStyles(({ breakpoints: { smUp }, colors: c }) => ({
 
   logo: {
     alignItems: 'center',
-    backgroundColor: c.neutral,
+    backgroundColor: ({ logoBg }) => logoBg,
     borderRadius: '1.5rem',
     display: 'flex',
     gridArea: '1 / 1 / span 2',
     justifySelf: 'center',
     overflow: 'hidden',
+    padding: '0.3rem',
+    width: '5rem',
     zIndex: 1,
 
     [smUp]: {
       borderRadius: '0.6rem 0 0 0.6rem',
+      height: '14rem',
+      padding: '0.8rem',
+      width: '14rem',
     },
   },
 
@@ -76,20 +80,15 @@ const useStyles = createUseStyles(({ breakpoints: { smUp }, colors: c }) => ({
   },
 }));
 
-const JobHeading = ({ data: { company, website, logo } }) => {
-  const css = useStyles();
-  const isSmUp = useBreakpoint('smUp');
+const JobHeading = ({ data: { company, website, logo, logoBg } }) => {
+  const css = useStyles({ logoBg });
 
   const site = new URL(website).hostname ?? '';
 
   return (
     <header className={css.wrapper}>
       <div className={css.logo}>
-        <Logo
-          src={logo || undefined}
-          alt={`${company} logo`}
-          size={isSmUp ? 'large' : 'small'}
-        />
+        <Img src={logo || undefined} alt={`${company} logo`} />
       </div>
       <div className={css.body}>
         <div>
@@ -115,6 +114,7 @@ JobHeading.propTypes = {
     company: string,
     website: string,
     logo: string,
+    logoBg: string,
   }).isRequired,
 };
 
