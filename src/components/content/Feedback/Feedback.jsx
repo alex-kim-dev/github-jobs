@@ -6,23 +6,25 @@ const useStyles = createUseStyles(({ colors: c }) => ({
   error: {
     color: c.textAlt,
     fontSize: '2.4rem',
-    marginTop: '8rem',
+    lineHeight: '125%',
+    paddingTop: '3.2rem',
     textAlign: 'center',
   },
 }));
 
-const ErrorMessage = ({ message }) => {
+const Feedback = ({ children = 'Error', className = '' }) => {
   const css = useStyles();
 
   return (
-    <Container maxWidth='sm'>
-      <div className={css.error}>{message}</div>
+    <Container maxWidth='sm' className={className}>
+      <div className={css.error}>{children}</div>
     </Container>
   );
 };
 
-ErrorMessage.propTypes = {
-  message: string.isRequired,
+Feedback.propTypes = {
+  children: string,
+  className: string,
 };
 
-export default ErrorMessage;
+export default Feedback;

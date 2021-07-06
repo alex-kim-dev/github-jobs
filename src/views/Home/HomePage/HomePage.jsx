@@ -1,8 +1,9 @@
-import { ErrorMessage } from '@components/content';
+import { Feedback } from '@components/content';
 import { FAILED, INITIAL, LOADING, SUCCEEDED } from '@constants/statuses';
 import { parseSearchQuery } from '@helpers';
 import { fetchJobList, saveSearchParams } from '@store/jobsList/jobList.slice';
 import { useEffect } from 'react';
+import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -11,7 +12,18 @@ import { ITEMS_IN_PAGE } from '@/apiMock/handlers';
 import JobList from '../JobList/JobList';
 import SearchForm from '../SearchForm/SearchForm';
 
+const useStyles = createUseStyles(({ breakpoints: { mdUp } }) => ({
+  main: {
+    paddingBottom: '6.2rem',
+
+    [mdUp]: {
+      paddingBottom: '10.4rem',
+    },
+  },
+}));
+
 const HomePage = () => {
+  const css = useStyles();
   const dispatch = useDispatch();
   const status = useSelector((state) => state.jobList.status);
   const list = useSelector((state) => state.jobList.list);
@@ -25,8 +37,6 @@ const HomePage = () => {
     }
   }, [status, dispatch, searchParams]);
 
-  const errMsg = 'Error while getting jobs, please try again';
-  const noResultsMsg = 'Nothing found';
   const isLastPage = list.length % ITEMS_IN_PAGE !== 0;
 
   const loadMore = () => {
@@ -34,20 +44,21 @@ const HomePage = () => {
     dispatch(fetchJobList());
   };
 
-  if (status === FAILED) return <ErrorMessage message={errMsg} />;
-
-  if (status === SUCCEEDED && list.length === 0)
-    return <ErrorMessage message={noResultsMsg} />;
-
   return (
-    <>
+    <main className={css.main}>
       <SearchForm />
       <JobList
         list={list}
         isLoading={status === LOADING}
         onLoadMore={isLastPage ? undefined : loadMore}
       />
-    </>
+      {status === FAILED && (
+        <Feedback>Error while getting jobs, please try again</Feedback>
+      )}
+      {status === SUCCEEDED && list.length === 0 && (
+        <Feedback>Nothing found</Feedback>
+      )}
+    </main>
   );
 };
 

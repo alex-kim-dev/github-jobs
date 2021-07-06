@@ -32,21 +32,15 @@ const useStyles = createUseStyles(({ breakpoints: { smUp, mdUp } }) => ({
       marginTop: '5.6rem',
     },
   },
-
-  pb: {
-    paddingBottom: '6.2rem',
-
-    [mdUp]: {
-      paddingBottom: '10.4rem',
-    },
-  },
 }));
 
 const JobList = ({ list, isLoading = false, onLoadMore }) => {
   const css = useStyles();
 
+  if (list.length === 0) return null;
+
   return (
-    <Container className={css.pb}>
+    <Container>
       <ul className={css.grid}>
         {list.map((job) => (
           <li key={job.id}>

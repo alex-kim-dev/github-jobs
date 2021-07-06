@@ -1,3 +1,4 @@
+import { Feedback } from '@components/content';
 import { Container, ScrollToTop } from '@components/layout';
 import { FAILED, INITIAL, LOADING, SUCCEEDED } from '@constants/statuses';
 import { fetchJobById } from '@store/job/job.slice';
@@ -18,6 +19,10 @@ const useStyles = createUseStyles({
     flex: 1,
     flexFlow: 'column',
     justifyContent: 'space-between',
+  },
+
+  pt: {
+    paddingTop: '4rem',
   },
 });
 
@@ -76,8 +81,10 @@ const JobPage = () => {
 
   return {
     [INITIAL]: () => renderJob(jobFromList),
-    [LOADING]: () => <Container maxWidth='sm'>Loading</Container>,
-    [FAILED]: () => <Container maxWidth='sm'>Error</Container>,
+    [LOADING]: () => <Feedback className={css.pt}>Loading...</Feedback>,
+    [FAILED]: () => (
+      <Feedback className={css.pt}>Error while getting the job</Feedback>
+    ),
     [SUCCEEDED]: () => renderJob(fetchedJob),
   }[status]();
 };
