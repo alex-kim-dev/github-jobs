@@ -1,6 +1,6 @@
 import { Img } from '@components/content';
 import { Button } from '@components/controls';
-import { shape, string } from 'prop-types';
+import { jobPropType } from '@utils/types';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles(({ breakpoints: { smUp }, colors: c }) => ({
@@ -80,24 +80,23 @@ const useStyles = createUseStyles(({ breakpoints: { smUp }, colors: c }) => ({
   },
 }));
 
-const JobHeading = ({ data: { company, website, logo, logoBg } }) => {
-  const css = useStyles({ logoBg });
-
-  const site = new URL(website).hostname ?? '';
+const JobHeading = ({ job }) => {
+  const css = useStyles({ logoBg: job.logoBackground });
+  const { hostname } = new URL(job.website);
 
   return (
     <header className={css.wrapper}>
       <div className={css.logo}>
-        <Img src={logo || undefined} alt={`${company} logo`} />
+        <Img src={job.logo || undefined} alt={`${job.company} logo`} />
       </div>
       <div className={css.body}>
         <div>
-          <h2 className={css.heading}>{company}</h2>
-          <p className={css.subheading}>{website}</p>
+          <h2 className={css.heading}>{job.company}</h2>
+          <p className={css.subheading}>{hostname}</p>
         </div>
         <Button
           as='a'
-          href={site}
+          href={job.website}
           target='_blank'
           rel='noreferrer'
           variant='secondary'
@@ -110,12 +109,7 @@ const JobHeading = ({ data: { company, website, logo, logoBg } }) => {
 };
 
 JobHeading.propTypes = {
-  data: shape({
-    company: string,
-    website: string,
-    logo: string,
-    logoBg: string,
-  }).isRequired,
+  job: jobPropType.isRequired,
 };
 
 export default JobHeading;
