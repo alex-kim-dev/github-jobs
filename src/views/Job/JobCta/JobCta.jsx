@@ -1,8 +1,9 @@
 import { Button } from '@components/controls';
 import { Container } from '@components/layout';
 import { useBreakpoint } from '@hooks';
-import { shape, string } from 'prop-types';
 import { createUseStyles } from 'react-jss';
+
+import { jobPropType } from '@/utils/types';
 
 const useStyles = createUseStyles(({ colors: c }) => ({
   flex: {
@@ -35,7 +36,7 @@ const useStyles = createUseStyles(({ colors: c }) => ({
   },
 }));
 
-const JobCta = ({ data: { position, company, website } }) => {
+const JobCta = ({ job }) => {
   const css = useStyles();
   const isSmUp = useBreakpoint('smUp');
 
@@ -45,13 +46,13 @@ const JobCta = ({ data: { position, company, website } }) => {
         <div className={css.flex}>
           {isSmUp && (
             <div>
-              <p className={css.heading}>{position}</p>
-              <p className={css.subheading}>{company}</p>
+              <p className={css.heading}>{job.position}</p>
+              <p className={css.subheading}>{job.company}</p>
             </div>
           )}
           <Button
             as='a'
-            href={website || '#'}
+            href={job.website || '#'}
             target='_blank'
             rel='noreferrer'
             variant='secondary'
@@ -66,11 +67,7 @@ const JobCta = ({ data: { position, company, website } }) => {
 };
 
 JobCta.propTypes = {
-  data: shape({
-    position: string,
-    company: string,
-    website: string,
-  }).isRequired,
+  job: jobPropType.isRequired,
 };
 
 export default JobCta;
