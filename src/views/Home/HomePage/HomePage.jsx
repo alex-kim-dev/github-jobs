@@ -1,7 +1,7 @@
 import { Feedback } from '@components/content';
 import { FAILED, INITIAL, LOADING, SUCCEEDED } from '@constants/statuses';
 import { parseSearchQuery } from '@helpers';
-import { fetchJobList, saveSearchParams } from '@store/jobsList/jobList.slice';
+import { fetchJobList, saveSearchParams } from '@store/jobs/jobs.slice';
 import { useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';

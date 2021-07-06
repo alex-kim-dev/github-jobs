@@ -29,8 +29,8 @@ export const fetchJobList = createAsyncThunk(
   },
 );
 
-const jobListSlice = createSlice({
-  name: 'jobList',
+const jobsSlice = createSlice({
+  name: 'jobs',
   initialState,
   reducers: {
     saveSearchParams: (state, action) => {
@@ -61,9 +61,9 @@ const jobListSlice = createSlice({
   },
 });
 
-export default jobListSlice.reducer;
+export default jobsSlice.reducer;
 
-export const { saveSearchParams, resetSearchParams } = jobListSlice.actions;
+export const { saveSearchParams, resetSearchParams } = jobsSlice.actions;
 
 export const selectJobById = (id) => (state) =>
   state.jobList.list.find((job) => job.id === id);

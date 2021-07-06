@@ -6,7 +6,7 @@ import backMobile from '@assets/mobile/bg-pattern-header.svg';
 import backTablet from '@assets/tablet/bg-pattern-header.svg';
 import { Toggle } from '@components/controls';
 import { DARK, LIGHT } from '@constants/themes';
-import { resetSearchParams } from '@store/jobsList/jobList.slice';
+import { resetSearchParams } from '@store/jobs/jobs.slice';
 import { switchTheme } from '@store/ui/ui.slice';
 import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
