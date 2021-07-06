@@ -1,12 +1,6 @@
+import { FAILED, INITIAL, LOADING, SUCCEEDED } from '@constants/statuses';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-import JobsAPI from '@/services/api/JobsAPI';
-import {
-  FAILED,
-  INITIAL,
-  LOADING,
-  SUCCEEDED,
-} from '@/utils/constants/statuses';
+import JobsAPI from '@services/api/JobsAPI';
 
 const initialState = {
   status: INITIAL,

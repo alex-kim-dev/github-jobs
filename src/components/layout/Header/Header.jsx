@@ -48,8 +48,8 @@ const useStyles = createUseStyles(({ breakpoints: { smUp, mdUp } }) => ({
 
 const Header = () => {
   const css = useStyles();
-  const theme = useSelector((state) => state.ui.theme);
   const dispatch = useDispatch();
+  const theme = useSelector((state) => state.ui.theme);
 
   const handleToggle = () => {
     const newTheme = theme === LIGHT ? DARK : LIGHT;
@@ -75,7 +75,5 @@ const Header = () => {
     </header>
   );
 };
-
-Header.propTypes = {};
 
 export default Header;

@@ -1,13 +1,12 @@
 import { Feedback } from '@components/content';
 import { Container, ScrollToTop } from '@components/layout';
 import { FAILED, INITIAL, LOADING, SUCCEEDED } from '@constants/statuses';
+import JobsAPI from '@services/api/JobsAPI';
 import { selectJobById } from '@store/jobs/jobs.slice';
 import { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
-import JobsAPI from '@/services/api/JobsAPI';
 
 import JobContent from '../JobContent/JobContent';
 import JobCta from '../JobCta/JobCta';
