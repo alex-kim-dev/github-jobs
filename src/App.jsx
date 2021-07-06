@@ -9,6 +9,7 @@ import { useThemePreference } from '@hooks';
 import { switchTheme } from '@store/ui/ui.slice';
 import { HomePage } from '@views/Home';
 import { JobPage } from '@views/Job';
+import { NotFoundPage } from '@views/NotFound';
 import { useLayoutEffect } from 'react';
 import { ThemeProvider } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,12 +32,9 @@ const App = () => {
         <Router>
           <Header />
           <Switch>
-            <Route exact path='/:id'>
-              <JobPage />
-            </Route>
-            <Route exact path='/'>
-              <HomePage />
-            </Route>
+            <Route exact path='/:id' component={JobPage} />
+            <Route exact path='/' component={HomePage} />
+            <Route component={NotFoundPage} />
           </Switch>
         </Router>
       </AppContainer>
