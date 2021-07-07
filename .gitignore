@@ -3,3 +3,4 @@
 /public/
 /.cache/
 *.log
+/coverage/

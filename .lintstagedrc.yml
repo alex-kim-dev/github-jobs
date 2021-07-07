@@ -1,2 +1,4 @@
-'*.{js,jsx}': eslint --fix
+'*.{js,jsx}':
+  - eslint --fix
+  - jest --findRelatedTests # --bail
 '*.{json,yml,yaml,md}': prettier --write
