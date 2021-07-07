@@ -7,7 +7,7 @@ import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { ITEMS_IN_PAGE } from '@/apiMock/handlers';
+import { ITEMS_IN_PAGE } from '@/__mocks__/jobsApi/handlers';
 
 import JobList from '../JobList/JobList';
 import SearchForm from '../SearchForm/SearchForm';

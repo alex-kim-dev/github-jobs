@@ -2,8 +2,9 @@ parser: babel-eslint
 extends:
   - airbnb
   - airbnb/hooks
-  # - plugin:jest/recommended
-  # - plugin:jest/style
+  - plugin:jest/recommended
+  - plugin:jest/style
+  - plugin:jest-dom/recommended
   - plugin:prettier/recommended
 env:
   browser: true
@@ -15,6 +16,7 @@ plugins:
 rules:
   import/order: off
   import/prefer-default-export: off
+  jest/no-mocks-import: off
   jss/sort-jss-keys: error
   jsx-a11y/label-has-associated-control:
     - error
@@ -29,13 +31,17 @@ rules:
   sort-imports: off
 
 overrides:
-  - files: [config/**/*.js, src/utils/helpers/wdyr.js]
+  - files:
+      - config/**/*.js
+      - src/utils/helpers/wdyr.js
+      - src/utils/helpers/test-utils.jsx
     rules:
-      simple-import-sort/imports: off
       import/no-extraneous-dependencies: off
       import/order:
         - error
         - newlines-between: always
+      react/prop-types: off
+      simple-import-sort/imports: off
 
   - files: src/store/**/*.slice.js
     rules:

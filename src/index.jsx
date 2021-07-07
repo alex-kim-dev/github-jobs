@@ -5,7 +5,7 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as StoreProvider } from 'react-redux';
 
-import mswWorker from './apiMock/browser';
+import mswWorker from './__mocks__/jobsApi/browser';
 import App from './App';
 import { baseurl } from './siteMeta';
 
