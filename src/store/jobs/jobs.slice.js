@@ -51,6 +51,7 @@ const jobsSlice = createSlice({
     [fetchJobList.rejected]: (state, action) => {
       state.error = action.error;
       state.status = FAILED;
+      console.error(action.error);
     },
   },
 });

@@ -43,8 +43,9 @@ const JobPage = () => {
         setFetchedJob(job);
         setStatus(SUCCEEDED);
       })
-      .catch(() => {
+      .catch((error) => {
         setStatus(FAILED);
+        console.error(error);
       });
   }, [jobFromList, id]);
 
