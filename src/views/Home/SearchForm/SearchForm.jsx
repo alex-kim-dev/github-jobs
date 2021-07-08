@@ -13,7 +13,7 @@ import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-ReactModal.setAppElement('#root');
+ReactModal.setAppElement('body');
 
 const useStyles = createUseStyles(
   ({ colors: c, breakpoints: { smUp, mdUp } }) => ({
@@ -253,7 +253,12 @@ const SearchForm = () => {
 
   return (
     <Container>
-      <form id='searchForm' className={css.form} onSubmit={handleSubmit}>
+      <form
+        id='searchForm'
+        aria-label='Jobs search'
+        className={css.form}
+        onSubmit={handleSubmit}
+      >
         {isSmUp ? renderExtended() : renderCompact()}
       </form>
     </Container>
