@@ -34,6 +34,13 @@ export default class JobsAPI {
       ...params,
     });
     const response = await fetch(endpoint);
+    if (!response.ok)
+      throw new Error(
+        [
+          'Error while fetching job list:',
+          `${response.status} ${response.statusText}`,
+        ].join(' '),
+      );
     return response.json();
   }
 

@@ -51,6 +51,7 @@ const jobsSlice = createSlice({
     [fetchJobList.rejected]: (state, action) => {
       state.error = action.error;
       state.status = FAILED;
+      // TODO reducers should be pure, remove this when done with tests
       console.error(action.error);
     },
   },
