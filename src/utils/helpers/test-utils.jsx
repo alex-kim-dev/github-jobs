@@ -2,12 +2,12 @@ import { render } from '@testing-library/react';
 import { ThemeProvider } from 'react-jss';
 import { Provider as StoreProvider } from 'react-redux';
 
-import store from '@store';
+import setupStore from '@store';
 import theme from '@/theme';
 
 const PageWrapper = ({ children }) => {
   return (
-    <StoreProvider store={store}>
+    <StoreProvider store={setupStore()}>
       <ThemeProvider theme={{ ...theme, colors: theme.colors.LIGHT }}>
         {children}
       </ThemeProvider>

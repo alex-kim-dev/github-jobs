@@ -1,6 +1,6 @@
 import '@helpers/wdyr';
 
-import store from '@store';
+import setupStore from '@store';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as StoreProvider } from 'react-redux';
@@ -21,7 +21,7 @@ mswWorker.start({
 
 ReactDOM.render(
   <StrictMode>
-    <StoreProvider store={store}>
+    <StoreProvider store={setupStore()}>
       <App />
     </StoreProvider>
   </StrictMode>,
