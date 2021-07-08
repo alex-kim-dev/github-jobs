@@ -67,6 +67,7 @@ const JobPage = () => {
     );
   };
 
+  // TODO show not found msg on 404, same text on other errors
   return {
     [INITIAL]: () => renderJob(jobFromList),
     [LOADING]: () => <Feedback className={css.pt}>Loading...</Feedback>,

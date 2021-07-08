@@ -17,7 +17,9 @@ const Feedback = ({ children = 'Error', className = '' }) => {
 
   return (
     <Container maxWidth='sm' className={className}>
-      <div className={css.error}>{children}</div>
+      <div className={css.error} role='alert'>
+        {children}
+      </div>
     </Container>
   );
 };

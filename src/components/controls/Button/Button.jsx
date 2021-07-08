@@ -93,7 +93,7 @@ const Button = ({
   const css = useStyles({ variant, fullWidth, hasIcon, loading, currentTheme });
 
   return (
-    <Element className={css.button} {...props}>
+    <Element className={css.button} {...props} disabled={loading}>
       {children}
       {loading && <span className={css.spinner} />}
     </Element>

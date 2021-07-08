@@ -156,6 +156,7 @@ const SearchForm = () => {
   const descriptionField = (
     <div className={css.description}>
       <TextField
+        name='description'
         label='description'
         placeholder='Filter by title, companies, expertise…'
         icon={isSmUp ? <IconSearch /> : null}
@@ -168,6 +169,7 @@ const SearchForm = () => {
   const locationField = (
     <div className={css.location}>
       <TextField
+        name='location'
         label='location'
         placeholder='Filter by location…'
         icon={<IconLocation />}
@@ -187,6 +189,8 @@ const SearchForm = () => {
 
       <div className={css.fullTime}>
         <Checkbox
+          name='fullTime'
+          // TODO make label stable
           label={`Full Time${isMdUp ? ' Only' : ''}`}
           checked={isFullTime}
           onChange={handleFullTimeChange}

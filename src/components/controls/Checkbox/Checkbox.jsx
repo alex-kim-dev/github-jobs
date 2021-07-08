@@ -47,12 +47,13 @@ const useStyles = createUseStyles(({ colors: c }) => ({
   },
 }));
 
-const Checkbox = ({ label, checked = false, onChange = () => {} }) => {
+const Checkbox = ({ name, label, checked = false, onChange = () => {} }) => {
   const css = useStyles();
 
   return (
     <label className={css.wrapper}>
       <input
+        name={name}
         className='sr-only'
         type='checkbox'
         onChange={onChange}
@@ -65,6 +66,7 @@ const Checkbox = ({ label, checked = false, onChange = () => {} }) => {
 };
 
 Checkbox.propTypes = {
+  name: string.isRequired,
   label: string.isRequired,
   checked: bool,
   onChange: func,

@@ -37,6 +37,7 @@ const useStyles = createUseStyles(({ colors: c }) => ({
 }));
 
 const TextField = ({
+  name,
   label,
   placeholder = '',
   icon = null,
@@ -51,6 +52,7 @@ const TextField = ({
       <input
         className={css.input}
         type='text'
+        name={name}
         aria-label={label}
         placeholder={placeholder}
         value={value}
@@ -61,6 +63,7 @@ const TextField = ({
 };
 
 TextField.propTypes = {
+  name: string.isRequired,
   label: string.isRequired,
   placeholder: string,
   icon: element,
