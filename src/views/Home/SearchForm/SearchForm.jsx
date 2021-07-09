@@ -190,7 +190,6 @@ const SearchForm = () => {
       <div className={css.fullTime}>
         <Checkbox
           name='fullTime'
-          // TODO make label stable
           label={`Full Time${isMdUp ? ' Only' : ''}`}
           checked={isFullTime}
           onChange={handleFullTimeChange}

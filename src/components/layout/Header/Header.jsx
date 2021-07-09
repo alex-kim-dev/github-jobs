@@ -61,7 +61,7 @@ const Header = () => {
       <Container>
         <div className={css.inner}>
           <Link to='/' onClick={() => dispatch(resetSearchParams())}>
-            <img src={logo} alt='Devjobs' />
+            <img src={logo} alt='Devjobs - Home' />
           </Link>
           <Toggle
             label='Switch theme'
