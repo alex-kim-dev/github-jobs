@@ -35,7 +35,7 @@ const filter = (description, location, fullTime) => {
   return fuse.search(description).map(({ item }) => item);
 };
 
-export default [
+export default (options) => [
   rest.get(`${API_URL}/positions.json`, (req, res, ctx) => {
     const params = req.url.searchParams;
 
@@ -48,7 +48,7 @@ export default [
     const filtered = filter(description, location, fullTime);
 
     return res(
-      ctx.delay(RESPONSE_DELAY),
+      options?.delay && ctx.delay(RESPONSE_DELAY),
       ctx.status(200),
       ctx.json(
         filtered.slice(ITEMS_IN_PAGE * (page - 1), ITEMS_IN_PAGE * page),
@@ -64,6 +64,10 @@ export default [
     const jobData = jobList.find((job) => job.id === idToFind);
     if (jobData === undefined) return res(ctx.status(404));
 
-    return res(ctx.delay(RESPONSE_DELAY), ctx.status(200), ctx.json(jobData));
+    return res(
+      options?.delay && ctx.delay(RESPONSE_DELAY),
+      ctx.status(200),
+      ctx.json(jobData),
+    );
   }),
 ];

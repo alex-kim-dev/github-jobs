@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 
-import { renderPage, screen, within } from '@helpers/test-utils';
+import { renderPage } from '@helpers/test-utils';
+import { screen, within } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import matchMediaPolyfill from 'mq-polyfill';
 import { rest } from 'msw';
