@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import { ThemeProvider } from 'react-jss';
 import { Provider as StoreProvider } from 'react-redux';
 import { Route, Router, Switch } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 import { HomePage } from '@views/Home';
 import { JobPage } from '@views/Job';
@@ -33,7 +34,7 @@ const TestApp = ({ history }) => {
     <StoreProvider store={setupStore()}>
       <ThemeProvider theme={{ ...theme, colors: theme.colors.LIGHT }}>
         <AppContainer>
-          <Router history={history}>
+          <Router history={history || createMemoryHistory()}>
             <Header />
             <Switch>
               <Route exact path='/:id' component={JobPage} />
