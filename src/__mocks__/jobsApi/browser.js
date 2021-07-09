@@ -1,5 +1,5 @@
 import { setupWorker } from 'msw';
 
-import handlers from './handlers';
+import setupHandlers from './handlers';
 
-export default setupWorker(...handlers);
+export default setupWorker(...setupHandlers({ delay: true }));
