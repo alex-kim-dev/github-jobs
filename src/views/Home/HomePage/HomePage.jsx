@@ -48,11 +48,13 @@ const HomePage = () => {
   return (
     <main className={css.main}>
       <SearchForm />
-      <JobList
-        list={list}
-        isLoading={status === LOADING}
-        onLoadMore={isLastPage ? undefined : loadMore}
-      />
+      {status !== INITIAL && (
+        <JobList
+          list={list}
+          isLoading={status === LOADING}
+          onLoadMore={isLastPage ? undefined : loadMore}
+        />
+      )}
       {status === FAILED && (
         <Feedback>Error while getting jobs, please try again</Feedback>
       )}

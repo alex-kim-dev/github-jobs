@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { render } from '@testing-library/react';
 import { ThemeProvider } from 'react-jss';
 import { Provider as StoreProvider } from 'react-redux';
