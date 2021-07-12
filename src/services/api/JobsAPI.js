@@ -34,21 +34,27 @@ export default class JobsAPI {
       ...params,
     });
     const response = await fetch(endpoint);
-    if (!response.ok)
-      throw new Error(
+    if (!response.ok) {
+      const error = new Error(
         [
           'Error while fetching job list:',
           `${response.status} ${response.statusText}`,
         ].join(' '),
       );
+      error.response = response;
+      throw error;
+    }
     return response.json();
   }
 
   async fetchJobById(id) {
     const endpoint = this.getEndpoint({ pathname: `positions/${id}.json` });
     const response = await fetch(endpoint);
-    if (response.status === 404)
-      throw new Error(`The job with id ${id} is not found`);
+    if (response.status === 404) {
+      const error = new Error('The job is not found');
+      error.response = response;
+      throw error;
+    }
     return response.json();
   }
 }
