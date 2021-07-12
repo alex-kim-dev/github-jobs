@@ -130,4 +130,60 @@ describe('App', () => {
       'https://example.com/vector',
     );
   });
+
+  it('goes to home from job page and loads jobs', async () => {
+    const history = createMemoryHistory();
+    history.push('/3');
+    renderApp(history);
+
+    await screen.findByRole('article');
+    userEvent.click(screen.getByAltText(/devjobs - home/i).closest('a'));
+
+    expect(screen.getByRole('form')).toBeInTheDocument();
+
+    const jobList = await screen.findByRole('list');
+    expect(jobList).toBeInTheDocument();
+    expect(within(jobList).getAllByRole('listitem')).toHaveLength(
+      ITEMS_IN_PAGE,
+    );
+  });
+
+  it('navigates between pages correctly', async () => {
+    const history = createMemoryHistory();
+    history.push('/?search=javascript');
+    renderApp(history);
+
+    await screen.findByRole('list');
+    userEvent.click(screen.getByRole('link', { name: /fullstack developer/i }));
+
+    expect(screen.getByRole('article')).toBeInTheDocument();
+    expect(history.location.pathname).toBe('/11');
+
+    userEvent.click(screen.getByAltText(/devjobs - home/i).closest('a'));
+
+    expect(screen.getByRole('form')).toHaveFormValues({
+      description: '',
+      location: '',
+      fullTime: false,
+    });
+    expect(history.location.pathname).toBe('/');
+
+    const jobList = await screen.findByRole('list');
+    expect(jobList).toBeInTheDocument();
+    expect(within(jobList).getAllByRole('listitem')).toHaveLength(
+      ITEMS_IN_PAGE,
+    );
+
+    history.goBack();
+    expect(await screen.findByRole('article')).toBeInTheDocument();
+    expect(history.location.pathname).toBe('/11');
+  });
+
+  it('shows 404 page', () => {
+    const history = createMemoryHistory();
+    history.push('/wrong/page');
+    renderApp(history);
+
+    expect(screen.getByRole('alert')).toHaveTextContent(/doesn't exist/i);
+  });
 });
