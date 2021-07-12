@@ -28,10 +28,11 @@ const useStyles = createUseStyles({
 
 const JobPage = () => {
   const css = useStyles();
-  const id = Number(useParams().id);
-  const jobFromList = useSelector(selectJobById(id));
+  const { id } = useParams();
+  const jobFromList = useSelector(selectJobById(Number(id)));
   const [fetchedJob, setFetchedJob] = useState(null);
   const [status, setStatus] = useState(INITIAL);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (jobFromList) return;
@@ -43,9 +44,10 @@ const JobPage = () => {
         setFetchedJob(job);
         setStatus(SUCCEEDED);
       })
-      .catch((error) => {
+      .catch((err) => {
         setStatus(FAILED);
-        console.error(error);
+        setError(err);
+        console.error(err);
       });
   }, [jobFromList, id]);
 
@@ -67,12 +69,15 @@ const JobPage = () => {
     );
   };
 
-  // TODO show not found msg on 404, same text on other errors
   return {
     [INITIAL]: () => renderJob(jobFromList),
     [LOADING]: () => <Feedback className={css.pt}>Loading...</Feedback>,
     [FAILED]: () => (
-      <Feedback className={css.pt}>Error while getting the job</Feedback>
+      <Feedback className={css.pt}>
+        {error?.response?.status === 404
+          ? 'The job is not found'
+          : 'Error while getting the job'}
+      </Feedback>
     ),
     [SUCCEEDED]: () => renderJob(fetchedJob),
   }[status]();
