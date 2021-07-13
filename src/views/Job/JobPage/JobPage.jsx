@@ -47,7 +47,6 @@ const JobPage = () => {
       .catch((err) => {
         setStatus(FAILED);
         setError(err);
-        console.error(err);
       });
   }, [jobFromList, id]);
 
