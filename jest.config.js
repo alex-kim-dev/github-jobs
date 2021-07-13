@@ -14,7 +14,6 @@ module.exports = {
     '^@hooks(.*)$': '<rootDir>/utils/hooks$1',
     '^@views(.*)$': '<rootDir>/views$1',
   },
-  resetMocks: true,
   rootDir: 'src',
   setupFilesAfterEnv: ['../jest.setup.js'],
   testEnvironment: 'jsdom',
