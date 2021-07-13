@@ -37,6 +37,7 @@ const useStyles = createUseStyles(({ colors: c }) => ({
 }));
 
 const TextField = ({
+  form,
   name,
   label,
   placeholder = '',
@@ -50,6 +51,7 @@ const TextField = ({
     <div className={css.wrapper}>
       {icon}
       <input
+        form={form}
         className={css.input}
         type='text'
         name={name}
@@ -63,6 +65,7 @@ const TextField = ({
 };
 
 TextField.propTypes = {
+  form: string,
   name: string.isRequired,
   label: string.isRequired,
   placeholder: string,

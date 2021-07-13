@@ -142,7 +142,7 @@ const SearchForm = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     if (isLoading) return;
 
     const searchParams = { description, location, isFullTime };
@@ -169,6 +169,7 @@ const SearchForm = () => {
   const locationField = (
     <div className={css.location}>
       <TextField
+        form='searchForm'
         name='location'
         label='location'
         placeholder='Filter by location…'
@@ -210,6 +211,7 @@ const SearchForm = () => {
 
       <div className={css.filter}>
         <Button
+          aria-label='show filters'
           type='button'
           variant='neutral'
           onClick={() => setModalOpen(true)}
@@ -219,7 +221,7 @@ const SearchForm = () => {
       </div>
 
       <div className={css.submit}>
-        <Button type='submit' loading={isLoading}>
+        <Button aria-label='Search' type='submit' loading={isLoading}>
           <IconSearch viewBox='0 0 24 24' width='20' height='20' />
         </Button>
       </div>
@@ -236,6 +238,8 @@ const SearchForm = () => {
 
         <div className={css.modalBody}>
           <Checkbox
+            form='searchForm'
+            name='fullTime'
             label='Full Time Only'
             checked={isFullTime}
             onChange={handleFullTimeChange}
@@ -245,7 +249,10 @@ const SearchForm = () => {
             type='submit'
             fullWidth
             form='searchForm'
-            onClick={handleModalClose}
+            onClick={() => {
+              handleModalClose();
+              handleSubmit();
+            }}
           >
             Search
           </Button>
