@@ -18,24 +18,24 @@ const useStyles = createUseStyles(({ breakpoints: { smUp, mdUp } }) => ({
   header: {
     background: `center top / 100% 100% no-repeat url(${backMobile})`,
     marginBottom: '-4rem',
-    paddingBottom: '7.2rem',
+    paddingBottom: '6.8rem',
     paddingTop: '3.2rem',
 
     [smUp]: {
       backgroundImage: `url(${backTablet})`,
-      paddingBottom: '8.6rem',
+      paddingBottom: '8.2rem',
       paddingTop: '4.2rem',
     },
 
     [mdUp]: {
       backgroundImage: `url(${backDesktop})`,
-      paddingBottom: '8.5rem',
+      paddingBottom: '8rem',
       paddingTop: '4.5rem',
     },
   },
 
   inner: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     display: 'flex',
     flexFlow: 'wrap',
     justifyContent: 'space-between',
