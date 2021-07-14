@@ -63,7 +63,7 @@ const useStyles = createUseStyles(({ colors: c }) => ({
     fontWeight: 700,
     justifySelf: 'flex-end',
     lineHeight: '140%',
-    marginTop: '2.6rem',
+    marginTop: '4.3rem',
   },
 }));
 
