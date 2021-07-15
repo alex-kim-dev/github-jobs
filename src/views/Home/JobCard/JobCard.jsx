@@ -78,9 +78,9 @@ const JobCard = ({ job }) => {
       <div className={css.body}>
         <div>
           <Status list={[job.postedAt, job.contract]} />
-          <h3 className={css.title}>
+          <h2 className={css.title}>
             <Link to={`/${job.id}`}>{job.position}</Link>
-          </h3>
+          </h2>
           <p className={css.company}>{job.company}</p>
         </div>
         <p className={css.location}>{job.location}</p>
