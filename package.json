@@ -1,6 +1,6 @@
 {
   "name": "github-jobs",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "private": true,
   "description": "A solution for \"GitHub Jobs API\" challenge on frontendmentor.io",
   "license": "MIT",
