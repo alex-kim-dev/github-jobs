@@ -26,12 +26,12 @@ const useStyles = createUseStyles(({ colors: c }) => ({
     textOverflow: 'ellipsis',
     width: '100%',
 
-    '&:focus': {
-      outline: 'none',
+    '&::placeholder': {
+      color: hexToRgba(c.text, 0.5),
     },
 
-    '&:placeholder': {
-      color: hexToRgba(c.text, 0.5),
+    '&:focus': {
+      outline: 'none',
     },
   },
 }));
