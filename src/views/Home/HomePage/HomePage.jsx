@@ -47,6 +47,7 @@ const HomePage = () => {
 
   return (
     <main className={css.main}>
+      <h1 className='sr-only'>Devjobs - jobs board</h1>
       <SearchForm />
       {status !== INITIAL && (
         <JobList

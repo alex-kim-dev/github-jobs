@@ -25,7 +25,7 @@ Users should be able to:
 ### Links
 
 - [Live Site](https://alex-k1m.github.io/github-jobs/)
-- Solution page on Frontend Mentor
+- [Solution page on Frontend Mentor](https://www.frontendmentor.io/solutions/github-jobs-api-react-LJlWSMpRx)
 
 ## My process
 
