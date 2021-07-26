@@ -11,7 +11,13 @@ module.exports = merge(common, {
 
   target: 'web',
 
-  devtool: 'eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
+
+  output: {
+    path: paths.build,
+    filename: '[name].bundle.js',
+    publicPath: '/',
+  },
 
   devServer: {
     historyApiFallback: true,
@@ -19,6 +25,7 @@ module.exports = merge(common, {
     compress: true,
     hot: true,
     port: 8080,
+    stats: 'minimal',
   },
 
   plugins: [

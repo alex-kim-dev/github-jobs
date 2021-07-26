@@ -1,6 +1,5 @@
 const path = require('path');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -9,17 +8,16 @@ const { title, description, author } = require('../src/siteMeta');
 const paths = require('./paths');
 
 module.exports = {
-  entry: [path.join(paths.src, 'index.jsx')],
+  entry: {
+    main: path.join(paths.src, 'index.jsx'),
+  },
 
   output: {
-    path: paths.build,
-    filename: '[name].bundle.js',
-    publicPath: '/',
+    clean: true,
+    hashDigestLength: 10,
   },
 
   plugins: [
-    new CleanWebpackPlugin(),
-
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -42,37 +40,49 @@ module.exports = {
       meta: { description, author },
       favicon: path.join(__dirname, '..', 'static', 'favicon-32x32.png'),
       template: path.join(paths.src, 'template.html'),
-      filename: 'index.html',
     }),
   ],
 
   module: {
+    generator: {
+      'asset/resource': {
+        filename: 'assets/[hash][ext][query]',
+      },
+    },
+
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
-        resolve: { extensions: ['.js', '.jsx'] },
-        use: ['babel-loader'],
+        include: paths.src,
+        use: 'babel-loader',
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        test: /\.(ico|gif|png|jpe?g)$/,
         type: 'asset/resource',
       },
       {
-        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        exclude: path.resolve(__dirname, '../src/assets/icons'),
-        type: 'asset/inline',
+        test: /\.svg$/,
+        include: path.join(paths.src, 'assets', 'icons'),
+        use: '@svgr/webpack',
       },
       {
-        test: /\.svg$/,
-        include: path.resolve(__dirname, '../src/assets/icons'),
-        use: ['@svgr/webpack'],
+        test: /\.(woff2?|eot|ttf|otf|svg)$/,
+        exclude: path.join(paths.src, 'assets', 'icons'),
+        type: 'asset/inline',
       },
     ],
+  },
+
+  optimization: {
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 
   resolve: {
