@@ -61,7 +61,8 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(ico|gif|png|jpe?g)$/,
+        test: /\.(ico|gif|png|jpe?g|svg)$/,
+        exclude: path.join(paths.src, 'assets', 'icons'),
         type: 'asset/resource',
       },
       {
@@ -70,9 +71,8 @@ module.exports = {
         use: '@svgr/webpack',
       },
       {
-        test: /\.(woff2?|eot|ttf|otf|svg)$/,
-        exclude: path.join(paths.src, 'assets', 'icons'),
-        type: 'asset/inline',
+        test: /\.(woff2?|eot|ttf|otf)$/,
+        type: 'asset/resource',
       },
     ],
   },
