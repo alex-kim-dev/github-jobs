@@ -1,5 +1,4 @@
 const { merge } = require('webpack-merge');
-const TerserPlugin = require('terser-webpack-plugin');
 
 const { url, baseurl } = require('../src/siteMeta');
 
@@ -17,23 +16,5 @@ module.exports = merge(common, {
     path: paths.build,
     filename: 'js/[name].[contenthash].bundle.js',
     publicPath: `${url}${baseurl}`,
-  },
-
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          mangle: false,
-        },
-      }),
-    ],
-  },
-
-  resolve: {
-    alias: {
-      'react-dom$': 'react-dom/profiling',
-      'scheduler/tracing': 'scheduler/tracing-profiling',
-    },
   },
 });
