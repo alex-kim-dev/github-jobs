@@ -9,7 +9,11 @@ const paths = require('./paths');
 
 module.exports = {
   entry: {
-    main: path.join(paths.src, 'index.jsx'),
+    main: {
+      import: path.join(paths.src, 'index.jsx'),
+      dependOn: 'apiMock',
+    },
+    apiMock: path.join(paths.src, '__mocks__', 'jobsApi', 'browser'),
   },
 
   output: {
@@ -80,9 +84,6 @@ module.exports = {
   optimization: {
     moduleIds: 'deterministic',
     runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-    },
   },
 
   resolve: {
