@@ -15,7 +15,7 @@ mswWorker.start({
   serviceWorker: {
     url: `${
       process.env.NODE_ENV !== 'development' ? baseurl : ''
-    }/mockServiceWorker.js`,
+    }mockServiceWorker.js`,
   },
 });
 
