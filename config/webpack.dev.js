@@ -16,7 +16,8 @@ module.exports = merge(common, {
   output: {
     path: paths.build,
     filename: '[name].bundle.js',
-    publicPath: '/',
+    publicPath: `/github-jobs/`,
+    // publicPath: '/',
   },
 
   devServer: {
