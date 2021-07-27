@@ -17,4 +17,9 @@ module.exports = merge(common, {
     filename: 'js/[name].[contenthash].bundle.js',
     publicPath: `${url}${baseurl}`,
   },
+
+  performance: {
+    maxAssetSize: 300 * 1024,
+    maxEntrypointSize: 300 * 1024,
+  },
 });
