@@ -2,7 +2,7 @@ module.exports = {
   title: 'GitHub Jobs API',
   description:
     "A frontendmentor.io 'Github Jobs API' challenge solution by Alex Kim",
-  author: 'Alex Kim, https://github.com/Alex-K1m',
-  url: 'https://alex-k1m.github.io',
+  author: 'Alex Kim, https://github.com/alex-kim-dev',
+  url: 'https://alex-kim-dev.github.io',
   baseurl: '/github-jobs/',
 };

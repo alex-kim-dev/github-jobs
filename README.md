@@ -1,8 +1,8 @@
 [![Depfu](https://badges.depfu.com/badges/c217822f9f25f0f26235328b13b1db87/overview.svg)](https://depfu.com/github/Alex-K1m/github-jobs?project_id=28157)
 [![Maintainability](https://api.codeclimate.com/v1/badges/68607b80e353c2664fc2/maintainability)](https://codeclimate.com/github/Alex-K1m/github-jobs/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/68607b80e353c2664fc2/test_coverage)](https://codeclimate.com/github/Alex-K1m/github-jobs/test_coverage)
-[![CD](https://github.com/Alex-K1m/github-jobs/actions/workflows/cd.yml/badge.svg)](https://github.com/Alex-K1m/github-jobs/actions/workflows/cd.yml)
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/alex-k1m/github-jobs)
+[![CD](https://github.com/alex-kim-dev/github-jobs/actions/workflows/cd.yml/badge.svg)](https://github.com/alex-kim-dev/github-jobs/actions/workflows/cd.yml)
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/alex-kim-dev/github-jobs)
 
 # Frontend Mentor - GitHub Jobs API solution
 
@@ -24,14 +24,14 @@ Users should be able to:
 
 ### Links
 
-- [Live Site](https://alex-k1m.github.io/github-jobs/)
+- [Live Site](https://alex-kim-dev.github.io/github-jobs/)
 - [Solution page on Frontend Mentor](https://www.frontendmentor.io/solutions/github-jobs-api-react-LJlWSMpRx)
 
 ## My process
 
 ### Built with
 
-- My custom [webpack template](https://github.com/Alex-K1m/webpack-react-template)
+- My custom [webpack template](https://github.com/alex-kim-dev/webpack-react-template)
 - React, React Router
 - Redux toolkit
 - JSS (styling)
@@ -43,7 +43,7 @@ Users should be able to:
   - Husky & Lint Staged (for linting & testing staged files before a commit)
 - CI and deploy to Github Pages
 
-This project used to be a part of my [frontend practice](https://github.com/Alex-K1m/frontend-practice) monorepo. Since I moved it to a separate repo I was also practicing:
+This project used to be a part of my [frontend practice](https://github.com/alex-kim-dev/frontend-practice) monorepo. Since I moved it to a separate repo I was also practicing:
 
 - Github Flow (using Issues, PRs; task management in Github Projects)
 
